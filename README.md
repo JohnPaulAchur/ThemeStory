@@ -1,6 +1,6 @@
 # ThemeStory
 
-ThemeStory is a custom blog theme developed for LifeTech OCMS, featuring a responsive landing page, blog listing, blog details, and an admin dashboard.
+ThemeStory is a responsive blog theme built for LifeTechOCMS, integrating with the framework’s content management system and MdBlog module, featuring a responsive landing page, blog listing, blog details, and an admin dashboard.
 
 ### Features
 - Responsive blog interface.
