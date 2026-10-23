@@ -1,0 +1,151 @@
+<section class="ts-page" data-view-name="ManagePages">
+  <div class="ts-page-heading">
+    <div>
+      <span class="ts-eyebrow">SITE CONTENT</span>
+      <h1>Pages</h1>
+      <p>Manage the supporting pages around your stories.</p>
+    </div>
+    <div class="ts-heading-actions">
+      <button
+        class="ts-button ts-button--subtle"
+        type="button"
+        data-export-table="pages"
+      >
+        <i class="bi bi-download"></i> Export CSV</button
+      ><button
+        class="ts-button ts-button--primary"
+        type="button"
+        data-modal-open="page"
+      >
+        <i class="bi bi-plus-lg"></i> Add page
+      </button>
+    </div>
+  </div>
+  <section class="ts-panel">
+    <div class="ts-panel-heading">
+      <div>
+        <h2>Website pages</h2>
+        <p>These sample pages are for interface testing only.</p>
+      </div>
+    </div>
+    <div class="ts-table-tools">
+      <label class="ts-search-box"
+        ><i class="bi bi-search"></i
+        ><input
+          type="search"
+          placeholder="Search pages..."
+          aria-label="Search pages"
+          data-table-search="pages" /></label
+      ><label class="ts-select-wrap"
+        ><span class="ts-sr-only">Filter pages by status</span
+        ><select data-status-filter="pages">
+          <option value="all">All statuses</option>
+          <option value="published">Published</option>
+          <option value="draft">Draft</option></select
+        ><i class="bi bi-chevron-down"></i
+      ></label>
+    </div>
+    <div class="ts-table-wrap">
+      <table
+        class="ts-table"
+        data-searchable-table="pages"
+        data-export-name="pages"
+      >
+        <thead>
+          <tr>
+            <th>Page</th>
+            <th>URL slug</th>
+            <th>Status</th>
+            <th>Last updated</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-status="published">
+            <td>
+              <div class="ts-story-cell">
+                <span class="ts-story-thumb ts-thumb--purple"
+                  ><i class="bi bi-house"></i></span
+                ><span
+                  ><strong>About us</strong
+                  ><small>About the publication</small></span
+                >
+              </div>
+            </td>
+            <td>/about</td>
+            <td>
+              <span class="ts-status ts-status--published">Published</span>
+            </td>
+            <td>Oct 16, 2026</td>
+            <td>
+              <button
+                class="ts-icon-button"
+                type="button"
+                data-row-edit="page"
+                aria-label="Edit About us"
+              >
+                <i class="bi bi-pencil"></i>
+              </button>
+            </td>
+          </tr>
+          <tr data-status="published">
+            <td>
+              <div class="ts-story-cell">
+                <span class="ts-story-thumb ts-thumb--mint"
+                  ><i class="bi bi-envelope"></i></span
+                ><span
+                  ><strong>Contact</strong
+                  ><small>Ways to get in touch</small></span
+                >
+              </div>
+            </td>
+            <td>/contact</td>
+            <td>
+              <span class="ts-status ts-status--published">Published</span>
+            </td>
+            <td>Oct 14, 2026</td>
+            <td>
+              <button
+                class="ts-icon-button"
+                type="button"
+                data-row-edit="page"
+                aria-label="Edit Contact"
+              >
+                <i class="bi bi-pencil"></i>
+              </button>
+            </td>
+          </tr>
+          <tr data-status="draft">
+            <td>
+              <div class="ts-story-cell">
+                <span class="ts-story-thumb ts-thumb--blue"
+                  ><i class="bi bi-shield-check"></i></span
+                ><span
+                  ><strong>Privacy policy</strong
+                  ><small>Privacy information</small></span
+                >
+              </div>
+            </td>
+            <td>/privacy-policy</td>
+            <td><span class="ts-status ts-status--draft">Draft</span></td>
+            <td>Oct 12, 2026</td>
+            <td>
+              <button
+                class="ts-icon-button"
+                type="button"
+                data-row-edit="page"
+                aria-label="Edit Privacy policy"
+              >
+                <i class="bi bi-pencil"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ts-table-empty" data-table-empty hidden>
+        <i class="bi bi-search"></i><strong>No pages found</strong
+        ><span>Try changing your search or filter.</span>
+      </div>
+    </div>
+  </section>
+</section>

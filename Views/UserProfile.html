@@ -1,0 +1,65 @@
+<section class="ts-page" data-view-name="UserProfile">
+    <div class="ts-page-heading">
+        <div>
+            <span class="ts-eyebrow">ACCOUNT SETTINGS</span>
+            <h1>My profile</h1>
+            <p>Manage the profile details shown in your workspace.</p>
+        </div>
+        <span class="ts-demo-note"><i class="bi bi-info-circle"></i> Demo form — not saved</span>
+    </div>
+    <div class="ts-profile-layout">
+        <section class="ts-panel ts-profile-card">
+            <div class="ts-profile-cover"></div>
+            <div class="ts-profile-avatar-wrap">
+                <img class="img ts-profile-avatar" src="https://images.pexels.com/photos/8937476/pexels-photo-8937476.jpeg" alt="Rectangle 2" />
+            </div>
+            <div class="ts-profile-identity">
+                <h2>Admin User</h2>
+                <p>Workspace administrator</p>
+                <span class="ts-status ts-status--published">Active account</span>
+            </div>
+            <div class="ts-profile-meta">
+                <div>
+                    <i class="bi bi-envelope"></i><span><small>Email</small><strong>admin@example.com</strong></span>
+                </div>
+                <div>
+                    <i class="bi bi-calendar3"></i><span><small>Member since</small><strong>January 2026</strong></span>
+                </div>
+            </div>
+        </section>
+        <section class="ts-panel">
+            <div class="ts-panel-heading">
+                <div>
+                    <h2>Profile information</h2>
+                    <p>Update the sample details below.</p>
+                </div>
+            </div>
+            <form class="ts-form-grid" data-static-form>
+                <label class="ts-field">
+                    <span>Display name</span>
+                    <input name="displayName" value="Admin User"
+                        required />
+                </label>
+                <label class="ts-field"><span>Email address</span><input name="email"
+                        type="email" value="admin@example.com" required />
+                </label>
+                <label
+                    class="ts-field"><span>Role</span><input value="Workspace administrator" disabled /></label><label
+                    class="ts-field"><span>Timezone</span><select name="timezone">
+                        <option>West Africa Time (UTC+1)</option>
+                        <option>Greenwich Mean Time (UTC+0)</option>
+                        <option>Central European Time (UTC+1)</option>
+                    </select>
+                </label>
+                <label class="ts-field ts-field--full"><span>Short bio</span><textarea name="bio"
+                        rows="4" placeholder="A short introduction...">Managing stories and the ThemeStory workspace.</textarea>
+                </label>
+                <div class="ts-form-actions">
+                    <button class="ts-button ts-button--primary" type="submit">
+                        <i class="bi bi-check2"></i> Save changes
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
+</section>

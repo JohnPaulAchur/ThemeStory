@@ -1,0 +1,64 @@
+<section class="ts-page" data-view-name="ManageCategory" data-category-page>
+    <div class="ts-page-heading">
+        <div>
+            <span class="ts-eyebrow">CONTENT ORGANISATION</span>
+            <h1>Categories</h1>
+            <p>Group stories into clear, reader-friendly topics.</p>
+        </div>
+        <div class="ts-heading-actions">
+            <button class="ts-button ts-button--subtle" type="button" data-category-export>
+                <i class="bi bi-download" aria-hidden="true"></i> Export CSV
+            </button>
+            <button class="ts-button ts-button--primary" type="button" data-category-add>
+                <i class="bi bi-plus-lg" aria-hidden="true"></i> Add category
+            </button>
+        </div>
+    </div>
+
+    <div class="ts-stat-grid ts-stat-grid--compact">
+        <article class="ts-stat-card">
+            <p>Total categories</p>
+            <div class="ts-stat-value" data-category-total>—</div>
+            <small>All topic groups</small>
+        </article>
+        <article class="ts-stat-card">
+            <p>Active</p>
+            <div class="ts-stat-value" data-category-active>—</div>
+            <small>Currently available</small>
+        </article>
+        <article class="ts-stat-card">
+            <p>Unassigned stories</p>
+            <div class="ts-stat-value" data-category-unassigned>—</div>
+            <small>Stories without a category</small>
+        </article>
+    </div>
+
+    <section class="ts-panel">
+        <div class="ts-panel-heading">
+            <div>
+                <h2>Your categories</h2>
+                <p>Each category can organise multiple stories.</p>
+            </div>
+            <label class="ts-search-box ts-search-box--short">
+                <i class="bi bi-search" aria-hidden="true"></i>
+                <input type="search" placeholder="Search categories..." aria-label="Search categories" data-category-search>
+            </label>
+        </div>
+
+        <div class="ts-category-grid" data-category-grid aria-live="polite">
+            <div class="ts-table-empty ts-card-empty" data-category-loading>
+                <i class="bi bi-arrow-repeat" aria-hidden="true"></i>
+                <strong>Loading categories…</strong>
+                <span>Fetching your categories from MdBlog.</span>
+            </div>
+        </div>
+
+        <div class="ts-table-empty ts-card-empty" data-category-empty hidden>
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <strong data-category-empty-title>No categories found</strong>
+            <span data-category-empty-message>Try another search.</span>
+        </div>
+    </section>
+</section>
+
+<script src="<?= htmlspecialchars(rtrim(ltSiteUrl(), '/') . '/packages/themes/ThemeStory/Assets/js/categories.js', ENT_QUOTES, 'UTF-8') ?>" defer></script>

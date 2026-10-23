@@ -1,0 +1,446 @@
+<!-- ThemeStory Blog Details Page -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.12.1/font/bootstrap-icons.min.css">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet"
+      href="<?= htmlspecialchars(ltSiteUrl() . '/packages/themes/ThemeStory/Assets/css/home.css', ENT_QUOTES, 'UTF-8') ?>">
+
+<!-- Reading progress -->
+<div class="bd-progress-track">
+    <div class="bd-progress-bar" id="bdProgressBar"></div>
+</div>
+
+<main class="bd-page">
+
+    <!-- Breadcrumb -->
+    <div class="container bd-container">
+        <nav class="bd-breadcrumb" aria-label="Breadcrumb">
+            <a href="<?= htmlspecialchars(ltSiteUrl(), ENT_QUOTES, 'UTF-8') ?>">
+                <i class="bi bi-house"></i> Home
+            </a>
+            <i class="bi bi-chevron-right"></i>
+            <a href="<?= htmlspecialchars(ltSiteUrl(), ENT_QUOTES, 'UTF-8') ?>">Stories</a>
+            <i class="bi bi-chevron-right"></i>
+            <span id="bdBreadcrumbTitle">Article</span>
+        </nav>
+    </div>
+
+    <!-- Loading -->
+    <section id="bdLoading" class="bd-loading">
+        <div class="bd-loader-ring"></div>
+        <p>Gathering your story<span class="bd-loading-dots"></span></p>
+        <small>Good reads are worth the wait.</small>
+    </section>
+
+    <!-- Error -->
+    <section id="bdError" class="bd-error d-none">
+        <div class="bd-error-icon"><i class="bi bi-journal-x"></i></div>
+        <h2>Story temporarily unavailable</h2>
+        <p id="bdErrorMessage">We couldn't load this story.</p>
+        <button type="button" class="bd-button-primary" id="bdRetry">
+            <i class="bi bi-arrow-clockwise"></i> Try again
+        </button>
+        <a class="bd-back-link" href="<?= htmlspecialchars(ltSiteUrl(), ENT_QUOTES, 'UTF-8') ?>">
+            Back to stories
+        </a>
+    </section>
+
+    <!-- Main article -->
+    <div id="bdContent" class="d-none">
+
+        <!-- Article heading -->
+        <section class="bd-hero">
+            <div class="container bd-container">
+                <div class="bd-hero-inner">
+
+                    <div class="bd-category-row">
+                        <span class="bd-category" id="bdCategory">Stories</span>
+                        <span class="bd-hero-label">
+                            <span class="bd-live-dot"></span>
+                            THEME STORY JOURNAL
+                        </span>
+                    </div>
+
+                    <h1 id="bdTitle" class="bd-title"></h1>
+
+                    <p id="bdExcerpt" class="bd-excerpt"></p>
+
+                    <div class="bd-author-line">
+                        <img id="bdAvatar" class="bd-avatar"
+                             src="https://randomuser.me/api/portraits/men/43.jpg"
+                             alt="Article author">
+
+                        <div class="bd-author-details">
+                            <strong id="bdAuthor">ThemeStory Editorial</strong>
+                            <span id="bdAuthorBioShort">Ideas, perspectives and stories worth sharing.</span>
+                        </div>
+
+                        <span class="bd-author-separator"></span>
+
+                        <div class="bd-published">
+                            <i class="bi bi-calendar3"></i>
+                            <span id="bdDate">Recently published</span>
+                        </div>
+
+                        <div class="bd-published">
+                            <i class="bi bi-clock"></i>
+                            <span id="bdReadingTime">5 min read</span>
+                        </div>
+                    </div>
+
+                    <div class="bd-hero-bottom">
+                        <div class="bd-stat-list">
+                            <span><i class="bi bi-eye"></i> <b id="bdViews">0</b> views</span>
+                            <span><i class="bi bi-heart"></i> <b id="bdLikes">0</b> likes</span>
+                        </div>
+
+                        <div class="bd-hero-actions">
+                            <button type="button" id="bdLikeBtn" class="bd-action-button">
+                                <i class="bi bi-heart"></i>
+                                <span>Like story</span>
+                            </button>
+                            <button type="button" id="bdShareBtn" class="bd-action-button">
+                                <i class="bi bi-share"></i>
+                                <span>Share</span>
+                            </button>
+                            <button type="button" id="bdCopyBtn" class="bd-action-button">
+                                <i class="bi bi-link-45deg"></i>
+                                <span>Copy link</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+       
+        <!-- Featured image slider -->
+        <section class="bd-featured-section">
+            <div class="container bd-container">
+                <figure class="bd-featured-figure">
+
+                    <img
+                        id="bdFeaturedImage"
+                        src=""
+                        alt=""
+                        class="bd-featured-image"
+                    >
+
+                    <div id="bdFeaturedPlaceholder" class="bd-featured-placeholder d-none">
+                        <i class="bi bi-journal-richtext"></i>
+                        <span>ThemeStory Journal</span>
+                    </div>
+
+                    <!-- Previous image -->
+                    <button
+                        type="button"
+                        id="bdSliderPrev"
+                        class="bd-slider-control bd-slider-prev d-none"
+                        aria-label="Previous image"
+                    >
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+
+                    <!-- Next image -->
+                    <button
+                        type="button"
+                        id="bdSliderNext"
+                        class="bd-slider-control bd-slider-next d-none"
+                        aria-label="Next image"
+                    >
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+
+                    <!-- Slider indicators -->
+                    <div
+                        id="bdSliderDots"
+                        class="bd-slider-dots d-none"
+                        role="group"
+                        aria-label="Choose featured image"
+                    ></div>
+
+                    <!-- Keep the existing ID for compatibility, but never show a caption -->
+                    <figcaption id="bdFeaturedCaption" class="d-none"></figcaption>
+
+                </figure>
+            </div>
+        </section>
+
+        <!-- Article layout -->
+        <section class="bd-main-section">
+            <div class="container bd-container">
+                <div class="row g-4 g-xl-5">
+
+                    <!-- Article body -->
+                    <div class="col-12 col-xl-8">
+                        <article class="bd-article">
+
+                            <div class="bd-article-toolbar">
+                                <span class="bd-article-kicker">
+                                    <span class="bd-kicker-line"></span>
+                                    INSIDE THE STORY
+                                </span>
+
+                                <div class="bd-toolbar-socials">
+                                    <button type="button" class="bd-social-button" data-share="facebook" aria-label="Share on Facebook">
+                                        <i class="bi bi-facebook"></i>
+                                    </button>
+                                    <button type="button" class="bd-social-button" data-share="linkedin" aria-label="Share on LinkedIn">
+                                        <i class="bi bi-linkedin"></i>
+                                    </button>
+                                    <button type="button" class="bd-social-button" data-share="x" aria-label="Share on X">
+                                        <i class="bi bi-twitter-x"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Table of contents -->
+                            <div class="bd-toc" id="bdToc">
+                                <button type="button" class="bd-toc-toggle" id="bdTocToggle">
+                                    <span><i class="bi bi-list-ul"></i> In this article</span>
+                                    <i class="bi bi-chevron-down bd-toc-chevron"></i>
+                                </button>
+                                <div class="bd-toc-body" id="bdTocBody">
+                                    <p class="bd-toc-empty">Preparing article sections...</p>
+                                </div>
+                            </div>
+
+                            <!-- API HTML content -->
+                            <div id="bdArticleBody" class="bd-article-body"></div>
+
+                            <!-- Gallery -->
+                            <section id="bdGallerySection" class="bd-gallery-section d-none">
+                                <div class="bd-section-heading">
+                                    <div>
+                                        <span class="bd-section-eyebrow">VISUAL STORY</span>
+                                        <h2>Moments from the story</h2>
+                                    </div>
+                                    <span id="bdGalleryCount" class="bd-gallery-count"></span>
+                                </div>
+                                <div id="bdGallery" class="bd-gallery"></div>
+                            </section>
+
+                            <!-- Tags -->
+                            <div class="bd-tags-section">
+                                <span class="bd-tags-label"><i class="bi bi-tags"></i> Explore topics</span>
+                                <div id="bdTags" class="bd-tags">
+                                    <span class="bd-tag">ThemeStory</span>
+                                </div>
+                            </div>
+
+                            <!-- Article footer -->
+                            <div class="bd-article-footer">
+                                <div class="bd-footer-note">
+                                    <span class="bd-footer-note-icon"><i class="bi bi-bookmark-heart"></i></span>
+                                    <div>
+                                        <strong>Enjoyed this story?</strong>
+                                        <p>Share it with someone who would love to read it.</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="bd-button-primary" id="bdFooterShare">
+                                    Share this story <i class="bi bi-arrow-up-right"></i>
+                                </button>
+                            </div>
+
+                            <!-- Author card -->
+                            <section class="bd-author-card">
+                                <div class="bd-author-card-top">
+                                    <span class="bd-section-eyebrow">MEET THE AUTHOR</span>
+                                    <i class="bi bi-patch-check-fill bd-author-check"></i>
+                                </div>
+                                <div class="bd-author-card-main">
+                                    <img id="bdAuthorCardAvatar"
+                                         src="https://randomuser.me/api/portraits/men/43.jpg"
+                                         alt="Author" class="bd-author-card-avatar">
+                                    <div class="bd-author-card-info">
+                                        <h3 id="bdAuthorCardName">ThemeStory Editorial</h3>
+                                        <p id="bdAuthorBio">Bringing thoughtful perspectives, useful insights and fresh ideas to our readers.</p>
+                                        <div id="bdAuthorSocials" class="bd-author-socials"></div>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </article>
+
+                        <!-- Comments -->
+                        <section class="bd-comments-section" id="bdCommentsSection">
+                            <div class="bd-comments-heading">
+                                <div>
+                                    <span class="bd-section-eyebrow">JOIN THE CONVERSATION</span>
+                                    <h2>Reader thoughts <span id="bdCommentCount">(0)</span></h2>
+                                    <p>Good stories spark good conversations.</p>
+                                </div>
+                                <i class="bi bi-chat-square-heart bd-comments-heading-icon"></i>
+                            </div>
+
+                            <div id="bdCommentsList" class="bd-comments-list">
+                                <div class="bd-comments-empty">
+                                    <i class="bi bi-chat-dots"></i>
+                                    <h3>Be the first to share a thought</h3>
+                                    <p>No comments yet. Start the conversation.</p>
+                                </div>
+                            </div>
+
+                            <!-- Display-only until a comment submission API is connected -->
+                            <form id="bdCommentForm" class="bd-comment-form">
+                                <div class="bd-comment-form-heading">
+                                    <h3>Leave a comment</h3>
+                                    <span>Your voice belongs here.</span>
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="bdCommentName">Your name</label>
+                                        <input type="text" id="bdCommentName" class="form-control"
+                                               placeholder="Enter your name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="bdCommentEmail">Email address</label>
+                                        <input type="email" id="bdCommentEmail" class="form-control"
+                                               placeholder="you@example.com" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="bdCommentText">Your thoughts</label>
+                                        <textarea id="bdCommentText" class="form-control" rows="5"
+                                                  placeholder="What stood out to you in this story?" required></textarea>
+                                    </div>
+                                    <div class="col-12 bd-comment-submit-row">
+                                        <small><i class="bi bi-shield-check"></i> Please be respectful and constructive.</small>
+                                        <button type="submit" class="bd-button-primary">
+                                            Submit comment <i class="bi bi-arrow-up-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p id="bdCommentNotice" class="bd-comment-notice d-none"></p>
+                            </form>
+                        </section>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <aside class="col-12 col-xl-4 bd-sidebar">
+
+                        <!-- Sticky contents -->
+                        <div class="bd-sidebar-card bd-sidebar-toc">
+                            <div class="bd-sidebar-card-heading">
+                                <div>
+                                    <span class="bd-section-eyebrow">YOUR READING GUIDE</span>
+                                    <h3>Navigate the story</h3>
+                                </div>
+                                <i class="bi bi-compass"></i>
+                            </div>
+                            <div id="bdSidebarToc" class="bd-sidebar-toc-list">
+                                <p>Article sections will appear here.</p>
+                            </div>
+                        </div>
+
+                        <!-- Share card -->
+                        <div class="bd-sidebar-share">
+                            <div class="bd-sidebar-share-icon"><i class="bi bi-send"></i></div>
+                            <span class="bd-section-eyebrow">PASS IT FORWARD</span>
+                            <h3>Stories are better shared.</h3>
+                            <p>Know someone who would enjoy this? Send this story their way.</p>
+                            <button type="button" id="bdSidebarShare" class="bd-button-light">
+                                Share with a friend <i class="bi bi-arrow-up-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- Newsletter -->
+                        <div class="bd-sidebar-card bd-newsletter">
+                            <div class="bd-newsletter-icon"><i class="bi bi-envelope-paper-heart"></i></div>
+                            <span class="bd-section-eyebrow">A LITTLE INSPIRATION</span>
+                            <h3>Good reads, delivered.</h3>
+                            <p>Stay curious with fresh stories and thoughtful perspectives.</p>
+                            <a href="<?= htmlspecialchars(ltSiteUrl(), ENT_QUOTES, 'UTF-8') ?>"
+                               class="bd-button-primary bd-newsletter-link">
+                                Explore ThemeStory <i class="bi bi-arrow-right"></i>
+                            </a>
+                            <small><i class="bi bi-shield-check"></i> No unnecessary noise.</small>
+                        </div>
+
+                        <!-- Topics -->
+                        <div class="bd-sidebar-card bd-topics-card">
+                            <div class="bd-sidebar-card-heading">
+                                <div>
+                                    <span class="bd-section-eyebrow">FIND YOUR INTEREST</span>
+                                    <h3>Explore topics</h3>
+                                </div>
+                                <i class="bi bi-grid"></i>
+                            </div>
+                            <div class="bd-topic-cloud" id="bdTopicCloud">
+                                <a href="<?= htmlspecialchars(ltSiteUrl(), ENT_QUOTES, 'UTF-8') ?>">Technology</a>
+                                <a href="<?= htmlspecialchars(ltSiteUrl(), ENT_QUOTES, 'UTF-8') ?>">Lifestyle</a>
+                                <a href="<?= htmlspecialchars(ltSiteUrl(), ENT_QUOTES, 'UTF-8') ?>">Culture</a>
+                                <a href="<?= htmlspecialchars(ltSiteUrl(), ENT_QUOTES, 'UTF-8') ?>">Travel</a>
+                            </div>
+                        </div>
+
+                        <!-- Recent articles -->
+                        <div class="bd-sidebar-card bd-related-sidebar">
+                            <div class="bd-sidebar-card-heading">
+                                <div>
+                                    <span class="bd-section-eyebrow">KEEP DISCOVERING</span>
+                                    <h3>More to explore</h3>
+                                </div>
+                                <i class="bi bi-stars"></i>
+                            </div>
+                            <div id="bdRelatedSidebar" class="bd-related-sidebar-list">
+                                <p class="bd-muted">Discover more stories from ThemeStory.</p>
+                            </div>
+                            <a class="bd-sidebar-view-all"
+                               href="<?= htmlspecialchars(ltSiteUrl(), ENT_QUOTES, 'UTF-8') ?>">
+                                Explore all stories <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <!-- Related articles -->
+        <section class="bd-related-section">
+            <div class="container bd-container">
+                <div class="bd-related-heading">
+                    <div>
+                        <span class="bd-section-eyebrow">DON'T STOP HERE</span>
+                        <h2>Stories you may also enjoy<span>.</span></h2>
+                        <p>Keep exploring ideas, perspectives and discoveries.</p>
+                    </div>
+                    <a href="<?= htmlspecialchars(ltSiteUrl(), ENT_QUOTES, 'UTF-8') ?>" class="bd-related-all">
+                        All stories <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                </div>
+
+                <div class="row g-4" id="bdRelatedGrid">
+                    <div class="col-12">
+                        <p class="bd-muted">More stories are waiting to be discovered.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<!-- Image viewer -->
+<div id="bdLightbox" class="bd-lightbox d-none" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button type="button" class="bd-lightbox-close" id="bdLightboxClose" aria-label="Close image viewer">
+        <i class="bi bi-x-lg"></i>
+    </button>
+    <button type="button" class="bd-lightbox-nav bd-lightbox-prev" id="bdLightboxPrev" aria-label="Previous image">
+        <i class="bi bi-chevron-left"></i>
+    </button>
+    <img id="bdLightboxImage" src="" alt="">
+    <button type="button" class="bd-lightbox-nav bd-lightbox-next" id="bdLightboxNext" aria-label="Next image">
+        <i class="bi bi-chevron-right"></i>
+    </button>
+    <p id="bdLightboxCaption"></p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="<?= htmlspecialchars(ltSiteUrl() . '/packages/themes/ThemeStory/Assets/js/BlogDetails.js', ENT_QUOTES, 'UTF-8') ?>"></script>

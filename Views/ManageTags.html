@@ -1,0 +1,78 @@
+<section class="ts-page" data-view-name="ManageTags" data-tags-page>
+    <div class="ts-page-heading">
+        <div>
+            <span class="ts-eyebrow">CONTENT DISCOVERY</span>
+            <h1>Tags</h1>
+            <p>Use tags to connect related stories across categories.</p>
+        </div>
+        <div class="ts-heading-actions">
+            <button class="ts-button ts-button--subtle" type="button" data-tag-export>
+                <i class="bi bi-download"></i> Export CSV
+            </button>
+            <button class="ts-button ts-button--primary" type="button" data-tag-add>
+                <i class="bi bi-plus-lg"></i> Add tag
+            </button>
+        </div>
+    </div>
+
+    <div class="ts-content-grid ts-content-grid--tags">
+        <section class="ts-panel">
+            <div class="ts-panel-heading">
+                <div>
+                    <h2>Tags at a glance</h2>
+                    <p>Tags loaded from MdBlog.</p>
+                </div>
+            </div>
+            <div class="ts-tag-cloud" data-tag-cloud>
+                <div class="ts-table-empty ts-card-empty" data-tag-cloud-loading>
+                    <i class="bi bi-arrow-repeat" aria-hidden="true"></i>
+                    <strong>Loading tags…</strong>
+                    <span>Fetching your tags from MdBlog.</span>
+                </div>
+            </div>
+        </section>
+
+        <aside class="ts-panel ts-tag-tip">
+            <span class="ts-stat-icon ts-stat-icon--purple"><i class="bi bi-lightbulb"></i></span>
+            <h2>Helpful tip</h2>
+            <p>Choose tags that describe the main ideas in a story. Consistent tags make it easier for readers to discover related content.</p>
+            <button class="ts-button ts-button--primary ts-button--full" type="button" data-tag-add>
+                <i class="bi bi-plus-lg"></i> Create a tag
+            </button>
+        </aside>
+    </div>
+
+    <section class="ts-panel ts-tag-list-panel">
+        <div class="ts-panel-heading">
+            <div>
+                <h2>Tag directory</h2>
+                <p>Search and export your current MdBlog tags. Story usage is not included in the documented tag response.</p>
+            </div>
+            <label class="ts-search-box ts-search-box--short">
+                <i class="bi bi-search"></i>
+                <input type="search" placeholder="Search tags..." aria-label="Search tags" data-tag-search>
+            </label>
+        </div>
+        <div class="ts-table-wrap">
+            <table class="ts-table" data-tag-table>
+                <thead>
+                    <tr>
+                        <th>Tag</th>
+                        <th>Stories</th>
+                        <th>Created</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody data-tag-tbody>
+                    <tr><td colspan="5">Loading tags from MdBlog…</td></tr>
+                </tbody>
+            </table>
+            <div class="ts-table-empty" data-tag-empty hidden>
+                <i class="bi bi-search"></i>
+                <strong>No tags found</strong>
+                <span>Try another search.</span>
+            </div>
+        </div>
+    </section>
+</section>

@@ -1,0 +1,17 @@
+{
+    "ltId": "179240608120147",
+    "packageName": "ThemeStory",
+    "packageType": "theme",
+    "version": "1.0.0",
+    "dependsOn": [
+        {
+            "packageName": "MdBlog",
+            "version": "1.0.0"
+        }
+    ],
+    "isPublished": "0",
+    "readme": "",
+    "description": "",
+    "languageUsed": "html,css,javascript",
+    "ltVersion": "2.7.4"
+}

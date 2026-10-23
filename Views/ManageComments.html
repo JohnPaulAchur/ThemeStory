@@ -1,0 +1,155 @@
+
+<section class="ts-page" data-view-name="ManageComments" data-comments-page>
+    <div class="ts-page-heading">
+        <div>
+            <span class="ts-eyebrow">COMMUNITY</span>
+            <h1>Comments</h1>
+            <p>Review reader feedback and keep conversations welcoming.</p>
+        </div>
+
+        <div class="ts-page-heading-actions">
+            <button
+                class="ts-button ts-button--subtle"
+                type="button"
+                data-export-table="comments"
+                data-comments-export
+            >
+                <i class="bi bi-download"></i> Export CSV
+            </button>
+
+            <button
+                class="ts-button ts-button--subtle"
+                type="button"
+                data-comments-refresh
+                aria-label="Refresh comments"
+            >
+                <i class="bi bi-arrow-clockwise"></i> Refresh
+            </button>
+        </div>
+    </div>
+
+    <!-- Dynamic statistics -->
+    <div class="ts-stat-grid ts-stat-grid--compact">
+
+        <article class="ts-stat-card">
+            <p>Total comments</p>
+            <div class="ts-stat-value" data-comments-stat="total">—</div>
+            <small>All reader conversations</small>
+        </article>
+
+        <article class="ts-stat-card">
+            <p>Approved</p>
+            <div class="ts-stat-value" data-comments-stat="approved">—</div>
+            <small>Visible on stories</small>
+        </article>
+
+        <article class="ts-stat-card">
+            <p>Pending</p>
+            <div class="ts-stat-value" data-comments-stat="pending">—</div>
+            <small>Awaiting review</small>
+        </article>
+
+        <article class="ts-stat-card">
+            <p>Flagged</p>
+            <div class="ts-stat-value" data-comments-stat="flagged">—</div>
+            <small>Check before approving</small>
+        </article>
+
+    </div>
+
+    <!-- Comments management -->
+    <section class="ts-panel">
+
+        <div class="ts-panel-heading">
+            <div>
+                <h2>Recent comments</h2>
+                <p>Review and moderate reader conversations.</p>
+            </div>
+
+            <span class="ts-demo-note" data-comments-loading-note>
+                <i class="bi bi-arrow-repeat"></i> Loading comments...
+            </span>
+        </div>
+
+        <!-- Search and status filter -->
+        <div class="ts-table-tools">
+
+            <label class="ts-search-box">
+                <i class="bi bi-search"></i>
+                <input
+                    type="search"
+                    placeholder="Search comments or authors..."
+                    aria-label="Search comments"
+                    data-table-search="comments"
+                    data-comments-search
+                >
+            </label>
+
+            <label class="ts-select-wrap">
+                <span class="ts-sr-only">Filter comments by status</span>
+
+                <select
+                    data-status-filter="comments"
+                    data-comments-status-filter
+                >
+                    <option value="all">All statuses</option>
+                    <option value="approved">Approved</option>
+                    <option value="pending">Pending</option>
+                    <option value="flagged">Flagged</option>
+                </select>
+
+                <i class="bi bi-chevron-down"></i>
+            </label>
+
+        </div>
+
+        <!-- Dynamic rows are inserted into this table -->
+        <div class="ts-table-wrap">
+
+            <table
+                class="ts-table"
+                data-searchable-table="comments"
+                data-export-name="comments"
+            >
+                <thead>
+                    <tr>
+                        <th>Comment</th>
+                        <th>Story</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody data-comments-table-body>
+                    <tr>
+                        <td colspan="5" class="text-center py-4">
+                            Loading comments from MdBlog...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="ts-table-empty" data-table-empty hidden>
+                <i class="bi bi-search"></i>
+                <strong>No comments found</strong>
+                <span>Try changing your search or filter.</span>
+            </div>
+
+        </div>
+
+        <div class="ts-table-footer">
+            <p data-comments-result-count aria-live="polite">
+                Loading comments...
+            </p>
+        </div>
+
+        <div
+            class="ts-alert ts-alert--error"
+            data-comments-error
+            role="alert"
+            hidden
+        ></div>
+
+    </section>
+</section>

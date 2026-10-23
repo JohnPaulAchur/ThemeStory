@@ -1,0 +1,1289 @@
+
+/* ==========================================
+   ThemeStory — Shared Header, Ticker & Footer
+   Universal Light/Dark Theme
+   ========================================== */
+
+/* ------------------------------------------
+   1. UNIVERSAL THEME VARIABLES
+   ------------------------------------------ */
+
+:root {
+    color-scheme: light;
+
+    /* Brand palette */
+    --story-mint: #90DEC1;
+    --story-mint-strong: #66B79E;
+    --story-purple: #884FBA;
+    --story-green: #203D33;
+
+    /* Compatibility aliases for existing components */
+    --story-navy: var(--story-green);
+    --story-blue: var(--story-purple);
+    --story-accent: var(--story-purple);
+
+    /* Light mode */
+    --story-page-bg: #FFFFFF;
+    --story-surface: #FFFFFF;
+    --story-soft: #F4F8F5;
+    --story-ink: #203D33;
+    --story-muted: #6B7280;
+    --story-line: #E8EEE9;
+    --story-header-bg: #FFFFFF;
+    --story-footer-bg: #203D33;
+    --story-footer-ink: #FFFFFF;
+    --story-input-bg: #FFFFFF;
+    --story-accent-contrast: #FFFFFF;
+
+    --story-shadow:
+        0 16px 44px rgba(32, 61, 51, 0.10);
+
+    --story-focus-ring:
+        0 0 0 3px rgba(144, 222, 193, 0.65);
+}
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+/* Dark mode: shared variables for every page */
+html[data-story-theme="dark"] {
+    color-scheme: dark;
+
+    --story-page-bg: #111A16;
+    --story-surface: #19251F;
+    --story-soft: #22332A;
+    --story-ink: #F1F7F3;
+    --story-muted: #B2C0B8;
+    --story-line: #34483C;
+    --story-header-bg: #19251F;
+    --story-footer-bg: #0B120E;
+    --story-footer-ink: #F1F7F3;
+    --story-input-bg: #19251F;
+
+    /* A lighter purple improves contrast in dark mode */
+    --story-accent: #B995E0;
+    --story-accent-contrast: #17121D;
+
+    --story-shadow:
+        0 16px 44px rgba(0, 0, 0, 0.28);
+
+    --story-focus-ring:
+        0 0 0 3px rgba(185, 149, 224, 0.45);
+}
+
+/* ------------------------------------------
+   2. BASE STYLES
+   ------------------------------------------ */
+
+* {
+    box-sizing: border-box;
+}
+
+.story-header *,
+.story-footer *,
+.story-ticker * {
+    box-sizing: border-box;
+}
+
+.story-header,
+.story-footer,
+.story-ticker {
+    font-family: inherit;
+}
+
+.story-header a,
+.story-footer a,
+.story-ticker a {
+    text-decoration: none;
+}
+
+.story-header button,
+.story-footer button {
+    font: inherit;
+}
+
+.story-header button:focus-visible,
+.story-header a:focus-visible,
+.story-footer a:focus-visible,
+.story-ticker a:focus-visible {
+    outline: none;
+    box-shadow: var(--story-focus-ring);
+}
+
+/* Keep the global page background and text in sync.
+   The !important declarations are scoped to the page
+   shell so existing component layouts are not reset. */
+
+html,
+body {
+    min-height: 100%;
+}
+
+html {
+    background: var(--story-page-bg);
+}
+
+body {
+    background-color: var(--story-page-bg);
+    color: var(--story-ink);
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+/* ------------------------------------------
+   3. HEADER
+   ------------------------------------------ */
+
+.story-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    background: var(--story-header-bg);
+    border-bottom: 1px solid var(--story-line);
+    color: var(--story-ink);
+    font-family: inherit;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.story-header__inner {
+    width: min(100% - 48px, 1240px);
+    min-height: 82px;
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+/* Brand */
+
+.story-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    flex-shrink: 0;
+    text-decoration: none;
+    color: var(--story-green);
+}
+
+html[data-story-theme="dark"] .story-brand {
+    color: var(--story-ink);
+}
+
+.story-brand__mark {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: var(--story-green);
+    color: #FFFFFF;
+    font-size: 23px;
+    font-weight: 750;
+    letter-spacing: -1.5px;
+    box-shadow: 0 5px 12px rgba(32, 61, 51, 0.15);
+}
+
+html[data-story-theme="dark"] .story-brand__mark {
+    background: var(--story-mint);
+    color: #203D33;
+}
+
+.story-brand__name {
+    font-size: 25px;
+    font-weight: 750;
+    letter-spacing: -1.1px;
+}
+
+/* Navigation */
+
+.story-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 9px;
+}
+
+.story-nav__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.story-nav__button,
+.story-icon-button,
+.story-profile-button {
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.story-nav__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--story-ink);
+    font-size: 14px;
+    font-weight: 650;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.story-nav__button svg,
+.story-icon-button svg,
+.story-profile-chevron {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+}
+
+.story-nav__button:hover,
+.story-nav__button[aria-expanded="true"] {
+    background: var(--story-soft);
+    color: var(--story-accent);
+}
+
+/* Icon buttons */
+
+.story-icon-button {
+    display: grid;
+    place-items: center;
+    width: 43px;
+    height: 43px;
+    position: relative;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--story-muted);
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.story-icon-button:hover,
+.story-icon-button[aria-expanded="true"] {
+    background: var(--story-soft);
+    color: var(--story-accent);
+}
+
+/* Notification indicator */
+
+.story-notification-button::after {
+    content: "";
+    position: absolute;
+    top: 9px;
+    right: 10px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--story-mint);
+    border: 1.5px solid var(--story-header-bg);
+}
+
+/* Profile */
+
+.story-profile-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 4px 0 4px 5px;
+    border-radius: 30px;
+    background: transparent;
+    color: var(--story-ink);
+}
+
+.story-profile-avatar {
+    display: grid;
+    place-items: center;
+    width: 39px;
+    height: 39px;
+    border: 2px solid var(--story-line);
+    border-radius: 50%;
+    background: var(--story-mint);
+    color: var(--story-green);
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.story-profile-chevron {
+    width: 15px;
+    height: 15px;
+    color: var(--story-muted);
+}
+
+/* ------------------------------------------
+   4. DROPDOWNS
+   ------------------------------------------ */
+
+.story-dropdown {
+    position: absolute;
+    top: calc(100% + 13px);
+    right: 0;
+    z-index: 1010;
+    width: 300px;
+    padding: 10px;
+    border: 1px solid var(--story-line);
+    border-radius: 16px;
+    background: var(--story-surface);
+    box-shadow: var(--story-shadow);
+    color: var(--story-ink);
+    animation: story-dropdown-in 0.16s ease-out;
+}
+
+.story-dropdown[hidden] {
+    display: none !important;
+}
+
+.story-stories-menu .story-dropdown {
+    left: 0;
+    right: auto;
+    width: 320px;
+}
+
+.story-dropdown__link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 11px;
+    border-radius: 11px;
+    color: var(--story-ink);
+    text-decoration: none;
+    transition: background 0.18s ease;
+}
+
+.story-dropdown__link:hover {
+    background: var(--story-soft);
+}
+
+.story-dropdown__link > span:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.story-dropdown__link strong {
+    color: var(--story-ink);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.story-dropdown__link small {
+    color: var(--story-muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.story-dropdown__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 37px;
+    height: 37px;
+    border-radius: 10px;
+    background: var(--story-soft);
+    color: var(--story-accent);
+}
+
+.story-dropdown__icon svg,
+.story-notification-empty__icon svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.story-dropdown__divider {
+    height: 1px;
+    margin: 8px 4px;
+    background: var(--story-line);
+}
+
+.story-category-list {
+    display: grid;
+    gap: 2px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.story-dropdown__status {
+    padding: 14px 10px;
+    color: var(--story-muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.story-dropdown__heading {
+    display: block;
+    padding: 9px 11px 11px;
+    color: var(--story-muted);
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+
+.story-small-dropdown {
+    width: 260px;
+}
+
+.story-dropdown__action {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 11px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--story-ink);
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    font-size: 13px;
+}
+
+.story-dropdown__action:hover {
+    background: var(--story-soft);
+}
+
+.story-dropdown__hint {
+    color: var(--story-accent);
+    font-size: 12px;
+    font-weight: 650;
+}
+
+/* Notifications */
+
+.story-notification-empty {
+    padding: 14px 12px 18px;
+    text-align: center;
+}
+
+.story-notification-empty__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 12px;
+    border-radius: 14px;
+    background: var(--story-soft);
+    color: var(--story-accent);
+}
+
+.story-notification-empty strong {
+    display: block;
+    color: var(--story-ink);
+    font-size: 13px;
+}
+
+.story-notification-empty p {
+    margin: 6px auto 0;
+    max-width: 205px;
+    color: var(--story-muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.story-profile-dropdown {
+    width: 230px;
+}
+
+/* ------------------------------------------
+   5. HIGHLIGHTS TICKER
+   ------------------------------------------ */
+
+/* Keep the ticker label and marquee coordinated
+   with the homepage palette. */
+
+.story-ticker {
+    width: 100%;
+    overflow: hidden;
+    background: var(--story-green);
+    color: #FFFFFF;
+    border-bottom: 1px solid rgba(144, 222, 193, 0.35);
+}
+
+.story-ticker__inner {
+    display: flex;
+    align-items: stretch;
+    min-height: 44px;
+    width: 100%;
+}
+
+.story-ticker__badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    flex-shrink: 0;
+    padding: 0 20px;
+    background: var(--story-mint);
+    color: var(--story-green);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+}
+
+.story-ticker__sparkle {
+    font-size: 15px;
+}
+
+.story-ticker__label,
+.story-ticker__highlight {
+    display: inline-block;
+}
+
+.story-ticker__highlight {
+    color: var(--story-purple);
+}
+
+.story-ticker__divider {
+    width: 1px;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.story-ticker__viewport {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.story-ticker__track {
+    display: flex;
+    width: max-content;
+    flex-shrink: 0;
+    animation: story-marquee 38s linear infinite;
+    will-change: transform;
+}
+
+.story-ticker__group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 28px;
+    padding-left: 28px;
+    white-space: nowrap;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.story-ticker__dot {
+    color: var(--story-mint);
+    font-size: 8px;
+}
+
+.story-ticker:hover .story-ticker__track {
+    animation-play-state: paused;
+}
+
+@keyframes story-marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* ------------------------------------------
+   6. FOOTER
+   ------------------------------------------ */
+
+.story-footer {
+    margin-top: 80px;
+    padding: 54px max(24px, calc((100% - 1200px) / 2)) 20px;
+    background: var(--story-footer-bg);
+    color: var(--story-footer-ink);
+    border-top: 1px solid var(--story-line);
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.story-footer__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 60px;
+    padding-bottom: 42px;
+}
+
+.story-footer__main {
+    max-width: 430px;
+}
+
+.story-footer__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--story-footer-ink);
+    text-decoration: none;
+    font-size: 23px;
+    font-weight: 750;
+    letter-spacing: -0.7px;
+}
+
+.story-brand__mark--footer {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--story-mint);
+    color: var(--story-green);
+    box-shadow: none;
+    font-size: 20px;
+}
+
+.story-footer__description {
+    max-width: 360px;
+    margin: 17px 0 0;
+    color: var(--story-muted);
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+.story-footer__links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 13px;
+    min-width: 130px;
+}
+
+.story-footer__links h2 {
+    margin: 0 0 5px;
+    color: var(--story-footer-ink);
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.story-footer__links a {
+    color: var(--story-muted);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.18s ease;
+}
+
+.story-footer__links a:hover {
+    color: var(--story-mint);
+}
+
+.story-footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--story-muted);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.story-footer__note {
+    text-align: right;
+}
+
+/* ------------------------------------------
+   7. UNIVERSAL DARK MODE
+   ------------------------------------------ */
+
+/* Header controls and dropdowns */
+html[data-story-theme="dark"] .story-header {
+    background: var(--story-header-bg);
+    color: var(--story-ink);
+}
+
+html[data-story-theme="dark"] .story-brand,
+html[data-story-theme="dark"] .story-nav__button,
+html[data-story-theme="dark"] .story-profile-button,
+html[data-story-theme="dark"] .story-dropdown,
+html[data-story-theme="dark"] .story-dropdown__link,
+html[data-story-theme="dark"] .story-dropdown__link strong,
+html[data-story-theme="dark"] .story-dropdown__action,
+html[data-story-theme="dark"] .story-notification-empty strong {
+    color: var(--story-ink);
+}
+
+html[data-story-theme="dark"] .story-notification-button::after {
+    border-color: var(--story-header-bg);
+}
+
+/* The ticker keeps its high-contrast green/mint design
+   in both modes. */
+
+/* The footer automatically uses the shared theme variables. */
+
+/* ------------------------------------------
+   8. ANIMATIONS & ACCESSIBILITY
+   ------------------------------------------ */
+
+@keyframes story-dropdown-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .story-header *,
+    .story-footer *,
+    .story-ticker * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .story-ticker__track {
+        animation: none;
+    }
+
+    body {
+        transition: none;
+    }
+}
+
+/* ------------------------------------------
+   9. RESPONSIVE LAYOUT
+   ------------------------------------------ */
+
+@media (max-width: 640px) {
+    .story-header__inner {
+        width: calc(100% - 28px);
+        min-height: 70px;
+        gap: 12px;
+    }
+
+    .story-brand {
+        gap: 8px;
+    }
+
+    .story-brand__mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        font-size: 20px;
+    }
+
+    .story-brand__name {
+        font-size: 21px;
+    }
+
+    .story-nav {
+        gap: 1px;
+    }
+
+    .story-nav__button {
+        gap: 4px;
+        min-height: 40px;
+        padding: 0 8px;
+        font-size: 13px;
+    }
+
+    .story-icon-button {
+        width: 36px;
+        height: 40px;
+        border-radius: 10px;
+    }
+
+    .story-icon-button svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .story-profile-button {
+        gap: 3px;
+    }
+
+    .story-profile-avatar {
+        width: 32px;
+        height: 32px;
+    }
+
+    .story-profile-chevron {
+        display: none;
+    }
+
+    .story-dropdown,
+    .story-stories-menu .story-dropdown {
+        position: fixed;
+        top: 115px;
+        left: 14px;
+        right: 14px;
+        width: auto;
+        max-width: 420px;
+        margin-inline: auto;
+    }
+
+    /* Mobile ticker */
+    .story-ticker__inner {
+        min-height: 40px;
+    }
+
+    .story-ticker__badge {
+        gap: 5px;
+        padding: 0 10px;
+        font-size: 9px;
+    }
+
+    .story-ticker__sparkle {
+        font-size: 12px;
+    }
+
+    .story-ticker__group {
+        gap: 18px;
+        padding-left: 18px;
+        font-size: 11px;
+    }
+
+    /* Footer */
+    .story-footer {
+        margin-top: 56px;
+        padding: 38px 22px 18px;
+    }
+
+    .story-footer__inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding-bottom: 30px;
+    }
+
+    .story-footer__links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .story-footer__links h2 {
+        grid-column: 1 / -1;
+    }
+
+    .story-footer__bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .story-footer__note {
+        text-align: left;
+    }
+}
+
+@media (max-width: 380px) {
+    .story-header__inner {
+        width: calc(100% - 20px);
+    }
+
+    .story-brand__name {
+        font-size: 18px;
+    }
+
+    .story-nav__button {
+        padding-inline: 6px;
+    }
+
+    .story-icon-button {
+        width: 32px;
+    }
+
+    .story-profile-avatar {
+        width: 29px;
+        height: 29px;
+    }
+
+    .story-ticker__badge {
+        padding-inline: 7px;
+        font-size: 8px;
+    }
+}
+
+/* =========================================================
+   THEMESTORY CATEGORY POSTS DROPDOWN — APPENDED STYLES
+   Append block begins here. Existing shell styles above are preserved.
+   ========================================================= */
+
+/* Give the active navigation item a higher stacking level without changing
+   the positioning of unrelated notification/profile/settings dropdowns. */
+.story-header .story-nav__item.is-open,
+.story-header [data-dropdown].is-open {
+    z-index: 1200;
+}
+
+.story-header [data-dropdown].is-open > [data-dropdown-panel] {
+    z-index: 1210;
+}
+
+/* The Stories panel itself must not clip the floating category submenu. */
+.story-header .story-categories-dropdown {
+    position: absolute;
+    z-index: 1210;
+    max-height: min(70vh, 600px);
+    overflow: visible;
+}
+
+/* Do not make the category list a scroll container on desktop: overflow-y:auto
+   creates a clipping boundary for the posts submenu positioned beside a row. */
+.story-header .story-category-list {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    max-height: none;
+    overflow: visible;
+}
+
+.story-header .story-category-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    overflow: visible;
+    border-radius: 10px;
+}
+
+.story-header .story-category-item > .story-category-link {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    padding: 11px 10px;
+    border-radius: 9px;
+    color: inherit;
+    text-decoration: none;
+    transition: background-color 160ms ease, color 160ms ease;
+}
+
+.story-header .story-category-link__text {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.story-header .story-category-link__text strong {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+.story-header .story-category-link__text small {
+    display: block;
+    font-size: 0.76rem;
+    line-height: 1.4;
+    opacity: 0.7;
+}
+
+.story-header .story-category-item .story-dropdown__icon {
+    display: inline-flex;
+    flex: 0 0 34px;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: rgba(136, 79, 186, 0.10);
+    color: var(--story-purple);
+}
+
+.story-header .story-category-item .story-dropdown__icon svg {
+    display: block;
+    width: 19px;
+    height: 19px;
+}
+
+.story-header .story-category-item > .story-category-link:hover,
+.story-header .story-category-item > .story-category-link:focus-visible {
+    background: rgba(136, 79, 186, 0.09);
+}
+
+.story-header .story-category-item > .story-category-link:focus-visible,
+.story-header .story-category-toggle:focus-visible,
+.story-header .story-post-link:focus-visible {
+    outline: 2px solid var(--story-purple);
+    outline-offset: 2px;
+}
+
+.story-header .story-category-toggle {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    flex: 0 0 34px;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 36px;
+    margin-right: 4px;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease;
+}
+
+.story-header .story-category-toggle svg {
+    display: block;
+    width: 17px;
+    height: 17px;
+    transition: transform 160ms ease;
+}
+
+.story-header .story-category-item:hover > .story-category-toggle,
+.story-header .story-category-toggle:hover,
+.story-header .story-category-toggle[aria-expanded="true"] {
+    background: rgba(136, 79, 186, 0.12);
+    color: var(--story-purple);
+}
+
+.story-header .story-category-toggle[aria-expanded="true"] svg {
+    transform: rotate(90deg);
+}
+
+.story-header .story-category-toggle[hidden] {
+    display: none !important;
+}
+
+/* Floating post panel: its parent category item is the positioning anchor. */
+.story-header .story-posts-dropdown {
+    position: absolute !important;
+    top: -4px;
+    left: calc(100% + 10px);
+    right: auto;
+    bottom: auto;
+    z-index: 1220;
+    display: block;
+    width: 350px;
+    min-width: 280px;
+    max-width: min(350px, calc(100vw - 32px));
+    max-height: min(430px, calc(100vh - 32px));
+    margin: 0;
+    padding: 14px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    background: var(--story-surface);
+    color: var(--story-ink);
+    border: 1px solid var(--story-line);
+    border-radius: 14px;
+    box-shadow: var(--story-shadow);
+    isolation: isolate;
+}
+
+.story-header .story-posts-dropdown[hidden] {
+    display: none !important;
+}
+
+.story-header .story-category-item.opens-left > .story-posts-dropdown {
+    left: auto;
+    right: calc(100% + 10px);
+}
+
+.story-header .story-posts-dropdown__heading {
+    display: block;
+    margin: 0 0 10px;
+    padding: 2px 4px 11px;
+    color: var(--story-accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--story-line);
+    overflow-wrap: anywhere;
+}
+
+.story-header .story-posts-dropdown__list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+}
+
+.story-header .story-post-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 11px 10px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--story-ink);
+    font: inherit;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    text-align: left;
+    text-decoration: none;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+    transition: background-color 150ms ease, color 150ms ease;
+}
+
+.story-header .story-post-link:hover {
+    background: var(--story-soft);
+    color: var(--story-accent);
+    text-decoration: none;
+}
+
+.story-header .story-post-link__icon {
+    display: inline-flex;
+    flex: 0 0 28px;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    margin-top: 1px;
+    border-radius: 8px;
+    background: var(--story-soft);
+    color: var(--story-accent);
+}
+
+.story-header .story-post-link__icon svg {
+    display: block;
+    width: 15px;
+    height: 15px;
+}
+
+.story-header .story-post-link__title {
+    display: block;
+    flex: 1 1 auto;
+    min-width: 0;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+.story-header .story-posts-dropdown .story-dropdown__status {
+    display: block;
+    padding: 12px 8px;
+    color: var(--story-muted);
+    font-size: 0.84rem;
+    line-height: 1.5;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+/* Mobile: one open nav panel sits above the other nav controls. The Stories
+   panel itself scrolls; categories and expanded posts remain in normal flow. */
+@media (max-width: 767px) {
+    .story-header .story-nav__item.is-open,
+    .story-header [data-dropdown].is-open {
+        z-index: 1300;
+    }
+
+    .story-header [data-dropdown].is-open > [data-dropdown-panel] {
+        z-index: 1310;
+    }
+
+    .story-header .story-categories-dropdown {
+        position: fixed;
+        top: 76px;
+        left: 14px;
+        right: 14px;
+        width: auto;
+        max-width: 420px;
+        max-height: calc(100vh - 90px);
+        max-height: calc(100dvh - 90px);
+        margin-inline: auto;
+        padding: 10px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        background: var(--story-surface);
+    }
+
+    .story-header .story-category-list {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .story-header .story-category-item {
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .story-header .story-category-item > .story-category-link {
+        flex: 1 1 0;
+    }
+
+    .story-header .story-posts-dropdown,
+    .story-header .story-category-item.opens-left > .story-posts-dropdown {
+        position: static !important;
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        max-height: 320px;
+        margin: 6px 0 10px;
+        padding: 12px;
+        border-radius: 11px;
+        box-shadow: none;
+    }
+
+    .story-header .story-post-link {
+        padding: 10px 8px;
+        font-size: 0.86rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .story-header .story-category-toggle,
+    .story-header .story-category-toggle svg,
+    .story-header .story-category-item > .story-category-link,
+    .story-header .story-post-link {
+        transition: none;
+    }
+}

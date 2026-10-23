@@ -1,0 +1,163 @@
+<section class="ts-page" data-view-name="ManagePost">
+  <div class="ts-page-heading">
+    <div>
+      <span class="ts-eyebrow">CONTENT WORKSPACE</span>
+      <h1>Stories</h1>
+      <p>
+        Create, organise and keep track of your published stories and drafts.
+      </p>
+    </div>
+    <div class="ts-heading-actions">
+      <button
+        class="ts-button ts-button--subtle"
+        type="button"
+        data-export-table="posts"
+      >
+        <i class="bi bi-download"></i> Export CSV</button
+      ><button
+        class="ts-button ts-button--primary"
+        type="button"
+        data-modal-open="post"
+      >
+        <i class="bi bi-plus-lg"></i> New story
+      </button>
+    </div>
+  </div>
+  <div class="ts-stat-grid ts-stat-grid--compact">
+    <article class="ts-stat-card">
+      <p>All stories</p>
+      <div class="ts-stat-value">—</div>
+      <small>Across all categories</small>
+    </article>
+    <article class="ts-stat-card">
+      <p>Published</p>
+      <div class="ts-stat-value">—</div>
+      <small>Visible to readers</small>
+    </article>
+    <article class="ts-stat-card">
+      <p>Drafts</p>
+      <div class="ts-stat-value">—</div>
+      <small>Not published yet</small>
+    </article>
+    <article class="ts-stat-card">
+      <p>Archived</p>
+      <div class="ts-stat-value">—</div>
+      <small>Stored for reference</small>
+    </article>
+  </div>
+  <section class="ts-panel">
+    <div class="ts-panel-heading">
+      <div>
+        <h2>All stories</h2>
+        <p>Search or filter the stories returned by MdBlog.</p>
+      </div>
+      <span class="ts-demo-note" data-posts-load-state>Loading stories…</span>
+    </div>
+    <div class="ts-table-tools">
+      <label class="ts-search-box"
+        ><i class="bi bi-search"></i
+        ><input
+          type="search"
+          placeholder="Search stories..."
+          aria-label="Search stories"
+          data-table-search="posts" /></label
+      ><label class="ts-select-wrap"
+        ><span class="ts-sr-only">Filter by status</span
+        ><select data-status-filter="posts">
+          <option value="all">All statuses</option>
+          <option value="published">Published</option>
+          <option value="draft">Draft</option>
+          <option value="archived">Archived</option></select
+        ><i class="bi bi-chevron-down"></i></label
+      ><button
+        class="ts-button ts-button--subtle ts-button--mobile-export"
+        type="button"
+        data-export-table="posts"
+      >
+        <i class="bi bi-download"></i> Export
+      </button>
+    </div>
+    <div class="ts-table-wrap">
+      <table
+        class="ts-table"
+        data-searchable-table="posts"
+        data-export-name="stories"
+      >
+        <thead>
+          <tr>
+            <th>Story</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Views</th>
+            <th>Updated</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="6" class="text-center py-4">
+              Loading stories from MdBlog…
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ts-table-empty" data-table-empty hidden>
+        <i class="bi bi-search"></i><strong>No stories found</strong
+        ><span>Try changing your search or filter.</span>
+      </div>
+    </div>
+    <div class="ts-table-foot">
+      <span data-posts-count>Loading story records…</span
+      ><span class="ts-pagination-label">Live API results</span>
+    </div>
+  </section>
+
+  <!-- Row markup stays in this HTML view; JavaScript only fills it with API data. -->
+  <template id="manage-post-row-template">
+    <tr data-post-id="">
+      <td>
+        <div class="ts-story-cell">
+          <span class="ts-story-thumb ts-thumb--purple" data-post-thumb
+            ><i class="bi bi-file-earmark-text"></i></span
+          ><span
+            ><strong data-post-title></strong><small data-post-slug></small
+          ></span>
+        </div>
+      </td>
+      <td data-post-category></td>
+      <td data-post-status></td>
+      <td data-post-views></td>
+      <td data-post-updated></td>
+      <td class="ts-post-actions">
+        <button
+          class="ts-icon-button"
+          type="button"
+          data-post-action="edit"
+          aria-label="Edit story"
+          title="Edit story"
+        >
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button
+          class="ts-icon-button"
+          type="button"
+          data-post-action="delete"
+          aria-label="Delete story"
+          title="Delete story"
+        >
+          <i class="bi bi-trash3"></i>
+          
+        </button>
+        <a
+                class="ts-icon-button"
+                data-post-view
+                href="#"
+                aria-label="View story"
+                title="View story"
+            >
+                <i class="bi bi-eye"></i>
+            </a>
+      </td>
+    </tr>
+  </template>
+</section>
