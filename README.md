@@ -1,4 +1,4 @@
-# ThemeStory
+# LifeTechOCMS
 
 ThemeStory is a responsive blog theme built for LifeTechOCMS, integrating with the framework’s content management system and MdBlog module, featuring a responsive landing page, blog listing, blog details, and an admin dashboard.
 
