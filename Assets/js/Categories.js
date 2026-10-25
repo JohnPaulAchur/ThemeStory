@@ -6,7 +6,10 @@
     if (!page || page.dataset.categoryScriptReady === "true") return;
     page.dataset.categoryScriptReady = "true";
 
-    const SITE_BASE = window.location.origin + "/mytheme/";
+    
+
+
+    const SITE_BASE = window.ThemeStoryConfig.siteBase;
     const CATEGORIES_API_URL = SITE_BASE + "index.php/blogs/categories";
     const POSTS_API_URL = SITE_BASE + "index.php/blogs/posts";
     const grid = page.querySelector("[data-category-grid]");

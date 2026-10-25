@@ -166,6 +166,14 @@
 
 </div>
 
+<script>
+    window.ThemeStoryConfig = {
+        siteBase: <?= json_encode(
+            rtrim(ltSiteUrl(), '/') . '/',
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+        ) ?>
+    };
+</script>
 <script src="<?= htmlspecialchars(
     ltSiteUrl() . '/packages/themes/ThemeStory/Assets/js/about-blog.js',
     ENT_QUOTES,

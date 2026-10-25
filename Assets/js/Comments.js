@@ -22,8 +22,8 @@
 
     page.dataset.commentsInitialized = "true";
 
-    // Match the existing ThemeStory installation path.
-    const SITE_BASE = window.location.origin + "/mytheme/";
+    // This Match the existing ThemeStory installation path.
+    const SITE_BASE = window.ThemeStoryConfig.siteBase;
     const API_BASE = SITE_BASE + "index.php";
     const COMMENTS_URL = API_BASE + "/blogs/comments";
     const POSTS_URL = API_BASE + "/blogs/filter/posts";

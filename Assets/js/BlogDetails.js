@@ -2,7 +2,8 @@
 (function ($) {
     "use strict";
 
-    const BASE = window.location.origin + "/mytheme/";
+
+    const BASE = window.ThemeStoryConfig.siteBase;
     const API_BASE = BASE + "index.php/blogs/";
     const POSTS_ENDPOINT = API_BASE + "filter/posts";
     const FALLBACK_AVATAR = "https://randomuser.me/api/portraits/men/43.jpg";

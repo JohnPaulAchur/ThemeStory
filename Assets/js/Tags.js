@@ -6,7 +6,7 @@
     if (!page || page.dataset.tagsScriptReady === "true") return;
     page.dataset.tagsScriptReady = "true";
 
-    const SITE_BASE = window.location.origin + "/mytheme/";
+    const SITE_BASE = window.ThemeStoryConfig.siteBase;
     const TAGS_API_URL = SITE_BASE + "index.php/blogs/tags";
 
     const cloud = page.querySelector("[data-tag-cloud]");

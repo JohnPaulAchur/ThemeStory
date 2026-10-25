@@ -618,7 +618,7 @@
    MD BLOG POSTS — DASHBOARD RECENT STORIES + MANAGE POSTS
    Uses GET /blogs/posts for the real admin post records.
 ========================================================= */
-const SITE_BASE = window.location.origin + "/mytheme/";
+const SITE_BASE = window.ThemeStoryConfig.siteBase;
 const POSTS_API_URL = SITE_BASE + "index.php/blogs/posts";
 const CATEGORIES_API_URL = SITE_BASE + "index.php/blogs/filter/categories";
 let postCategoriesPromise = null;

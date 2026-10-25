@@ -9,9 +9,13 @@
     const errorMessage = document.getElementById("mdblog-error");
 
     // Same LifeTech OCMS installation as the current page.
+    // const apiUrl = new URL(
+    //     "/mytheme/index.php/blogs/filter/posts",
+    //     window.location.origin
+    // );
+
     const apiUrl = new URL(
-        "/mytheme/index.php/blogs/filter/posts",
-        window.location.origin
+        window.ThemeStoryConfig.siteBase + "index.php/blogs/filter/posts"
     );
 
     apiUrl.searchParams.set("page", "1");
@@ -42,10 +46,12 @@
         // The storage path is relative to the OCMS installation.
         const cleanPath = image.storagePath.replace(/^\/+/, "");
 
-        return new URL(
-            "/mytheme/" + cleanPath,
-            window.location.origin
-        ).href;
+        // return new URL(
+        //     "/mytheme/" + cleanPath,
+        //     window.location.origin
+        // ).href;
+
+        return new URL(cleanPath, window.ThemeStoryConfig.siteBase).href;
     }
 
     function renderPost(post) {
@@ -105,9 +111,15 @@
         );
 
         const link = createElement("a", "read-more", "Read article ");
+        // link.href =
+        //     window.location.origin +
+        //     "/mytheme/index.php/blogs/posts/" +
+        //     encodeURIComponent(post.slug || "") +
+        //     "/slug";
+
         link.href =
-            window.location.origin +
-            "/mytheme/index.php/blogs/posts/" +
+            window.ThemeStoryConfig.siteBase +
+            "index.php/blogs/posts/" +
             encodeURIComponent(post.slug || "") +
             "/slug";
 

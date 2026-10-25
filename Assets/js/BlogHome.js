@@ -2,9 +2,9 @@
 (function ($) {
     "use strict";
 
-    const API_URL = "/mytheme/index.php/blogs/filter/posts";
+    const SITE_BASE = window.ThemeStoryConfig.siteBase;
+    const API_URL = SITE_BASE + "index.php/blogs/filter/posts";
     const POSTS_PER_PAGE = 6;
-    const SITE_BASE = window.location.origin + "/mytheme/";
     const SEARCH_DELAY = 350;
 
     const $grid = $("#blog-posts");
