@@ -1,210 +1,207 @@
 <section class="ts-page" data-view-name="AdminDashboard">
-  <div class="ts-page-heading">
-    <div>
-      <span class="ts-eyebrow">YOUR WORKSPACE</span>
-      <h1>Good to see you again<span class="ts-heading-period">.</span></h1>
-      <p>Here's what's happening with your stories today.</p>
-    </div>
-    <button
-      class="ts-button ts-button--primary"
-      type="button"
-      data-modal-open="post"
-    >
-      <i class="bi bi-plus-lg" aria-hidden="true"></i> New story
-    </button>
-  </div>
-
-  <div class="ts-stat-grid">
-    <article class="ts-stat-card">
-      <div class="ts-stat-top">
-        <span class="ts-stat-icon ts-stat-icon--purple"
-          ><i class="bi bi-file-earmark-text"></i></span
-        ><span class="ts-stat-change ts-change-positive"
-          ><i class="bi bi-arrow-up-right"></i> 12.4%</span
-        >
-      </div>
-      <p>Total stories</p>
-      <div class="ts-stat-value" data-dashboard-stat="total-posts">—</div>
-      <small>Compared with last month</small>
-    </article>
-    <article class="ts-stat-card">
-      <div class="ts-stat-top">
-        <span class="ts-stat-icon ts-stat-icon--mint"
-          ><i class="bi bi-eye"></i></span
-        ><span class="ts-stat-change ts-change-positive"
-          ><i class="bi bi-arrow-up-right"></i> 8.2%</span
-        >
-      </div>
-      <p>Story views</p>
-      <div class="ts-stat-value" data-dashboard-stat="total-views">—</div>
-      <small>Across all published stories</small>
-    </article>
-    <article class="ts-stat-card">
-      <div class="ts-stat-top">
-        <span class="ts-stat-icon ts-stat-icon--blue"
-          ><i class="bi bi-chat-left-text"></i></span
-        ><span class="ts-stat-change ts-change-positive"
-          ><i class="bi bi-arrow-up-right"></i> 5.6%</span
-        >
-      </div>
-      <p>Comments</p>
-      <div class="ts-stat-value" data-dashboard-stat="total-comments">—</div>
-      <small>12 awaiting moderation</small>
-    </article>
-    <article class="ts-stat-card">
-      <div class="ts-stat-top">
-        <span class="ts-stat-icon ts-stat-icon--orange"
-          ><i class="bi bi-pencil-square"></i></span
-        ><span class="ts-stat-neutral">Needs attention</span>
-      </div>
-      <p>Draft stories</p>
-      <div class="ts-stat-value" data-dashboard-stat="draft-posts">—</div>
-      <small>Ready when you are</small>
-    </article>
-  </div>
-
-  <div class="ts-content-grid ts-content-grid--wide">
-    <section class="ts-panel">
-      <div class="ts-panel-heading">
+    <div class="ts-page-heading">
         <div>
-          <h2>Recent stories</h2>
-          <p>A quick look at your latest content.</p>
+            <span class="ts-eyebrow">YOUR WORKSPACE</span>
+            <h1>Good to see you again<span class="ts-heading-period">.</span></h1>
+            <p>Here's what's happening with your stories today.</p>
         </div>
-        <a
-          class="ts-text-link"
-          href="<?= htmlspecialchars(rtrim(ltSiteUrl(), '/') . '/index.php/ThemeStory/ManagePost', ENT_QUOTES, 'UTF-8') ?>"
-          >View all <i class="bi bi-arrow-right"></i
-        ></a>
-      </div>
-      <div class="ts-table-wrap">
-        <table class="ts-table">
-          <thead>
-            <tr>
-              <th>Story</th>
-              <th>Status</th>
-              <th>Views</th>
-              <th>Published</th>
-              <th><span class="ts-sr-only">Actions</span></th>
-            </tr>
-          </thead>
-          <tbody id="recent-stories-body">
-            <tr>
-              <td colspan="5" class="text-center py-4">
-                Loading stories from MdBlog…
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <button class="ts-button ts-button--primary" type="button" data-modal-open="post">
+            <i class="bi bi-plus-lg" aria-hidden="true"></i> New story
+        </button>
+    </div>
+
+    <div class="ts-stat-grid">
+        <article class="ts-stat-card">
+            <div class="ts-stat-top">
+                <span class="ts-stat-icon ts-stat-icon--purple">
+                    <i class="bi bi-file-earmark-text"></i>
+                </span>
+                <span class="ts-stat-neutral">Live data</span>
+            </div>
+            <p>Total stories</p>
+            <div class="ts-stat-value" data-dashboard-stat="total-posts">—</div>
+            <small>Story records returned by MdBlog</small>
+        </article>
+
+        <article class="ts-stat-card">
+            <div class="ts-stat-top">
+                <span class="ts-stat-icon ts-stat-icon--mint">
+                    <i class="bi bi-eye"></i>
+                </span>
+                <span class="ts-stat-neutral">Live data</span>
+            </div>
+            <p>Story views</p>
+            <div class="ts-stat-value" data-dashboard-stat="total-views">—</div>
+            <small>Views in the loaded story page</small>
+        </article>
+
+        <article class="ts-stat-card">
+            <div class="ts-stat-top">
+                <span class="ts-stat-icon ts-stat-icon--blue">
+                    <i class="bi bi-chat-left-text"></i>
+                </span>
+                <span class="ts-stat-neutral">Live data</span>
+            </div>
+            <p>Comments</p>
+            <div class="ts-stat-value" data-dashboard-stat="total-comments">—</div>
+            <small>Comments returned by MdBlog</small>
+        </article>
+
+        <article class="ts-stat-card">
+            <div class="ts-stat-top">
+                <span class="ts-stat-icon ts-stat-icon--orange">
+                    <i class="bi bi-pencil-square"></i>
+                </span>
+                <span class="ts-stat-neutral">Needs attention</span>
+            </div>
+            <p>Draft stories</p>
+            <div class="ts-stat-value" data-dashboard-stat="draft-posts">—</div>
+            <small>Status is not included in the filtered-post response</small>
+        </article>
+    </div>
+
+    <div class="ts-content-grid ts-content-grid--wide">
+        <section class="ts-panel">
+            <div class="ts-panel-heading">
+                <div>
+                    <h2>Recent stories</h2>
+                    <p>A quick look at your latest content.</p>
+                </div>
+                <a
+                    class="ts-text-link"
+                    href="<?= htmlspecialchars(rtrim(ltSiteUrl(), '/') . '/ThemeStory/ManagePost', ENT_QUOTES, 'UTF-8') ?>"
+                >
+                    View all <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="ts-table-wrap">
+                <table class="ts-table">
+                    <thead>
+                        <tr>
+                            <th>Story</th>
+                            <th>Status</th>
+                            <th>Views</th>
+                            <th>Published</th>
+                            <th><span class="ts-sr-only">Actions</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="recent-stories-body">
+                        <tr>
+                            <td colspan="5" class="text-center py-4">
+                                Loading stories from MdBlog…
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <aside class="ts-panel ts-quick-panel">
+            <div class="ts-panel-heading">
+                <div>
+                    <h2>Quick actions</h2>
+                    <p>Keep your workspace moving.</p>
+                </div>
+            </div>
+
+            <button class="ts-quick-action" type="button" data-modal-open="post">
+                <span class="ts-quick-icon ts-quick-icon--purple">
+                    <i class="bi bi-plus-square"></i>
+                </span>
+                <span>
+                    <strong>Write a new story</strong>
+                    <small>Start with a blank page</small>
+                </span>
+                <i class="bi bi-chevron-right"></i>
+            </button>
+
+            <a
+                class="ts-quick-action"
+                href="<?= htmlspecialchars(rtrim(ltSiteUrl(), '/') . '/ThemeStory/ManageComments', ENT_QUOTES, 'UTF-8') ?>"
+            >
+                <span class="ts-quick-icon ts-quick-icon--mint">
+                    <i class="bi bi-chat-dots"></i>
+                </span>
+                <span>
+                    <strong>Review comments</strong>
+                    <small>Review and moderate comments</small>
+                </span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+
+            <button class="ts-quick-action" type="button" data-modal-open="category">
+                <span class="ts-quick-icon ts-quick-icon--blue">
+                    <i class="bi bi-collection"></i>
+                </span>
+                <span>
+                    <strong>Add a category</strong>
+                    <small>Organise your stories</small>
+                </span>
+                <i class="bi bi-chevron-right"></i>
+            </button>
+
+            <a
+                class="ts-quick-action"
+                href="<?= htmlspecialchars(rtrim(ltSiteUrl(), '/') . '/ThemeStory/ManageReports', ENT_QUOTES, 'UTF-8') ?>"
+            >
+                <span class="ts-quick-icon ts-quick-icon--orange">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </span>
+                <span>
+                    <strong>View reports</strong>
+                    <small>See how content performs</small>
+                </span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </aside>
+    </div>
+
+    <section class="ts-panel ts-category-overview">
+        <div class="ts-panel-heading">
+            <div>
+                <h2>Category overview</h2>
+                <p>How your stories are distributed.</p>
+            </div>
+            <a
+                class="ts-text-link"
+                href="<?= htmlspecialchars(rtrim(ltSiteUrl(), '/') . '/ThemeStory/ManageCategory', ENT_QUOTES, 'UTF-8') ?>"
+            >
+                Manage categories <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="ts-category-bars" id="dashboard-category-bars">
+            <p class="text-muted mb-0">Loading category overview…</p>
+        </div>
     </section>
-    <aside class="ts-panel ts-quick-panel">
-      <div class="ts-panel-heading">
-        <div>
-          <h2>Quick actions</h2>
-          <p>Keep your workspace moving.</p>
-        </div>
-      </div>
-      <button class="ts-quick-action" type="button" data-modal-open="post">
-        <span class="ts-quick-icon ts-quick-icon--purple"
-          ><i class="bi bi-plus-square"></i></span
-        ><span
-          ><strong>Write a new story</strong
-          ><small>Start with a blank page</small></span
-        ><i class="bi bi-chevron-right"></i>
-      </button>
-      <a
-        class="ts-quick-action"
-        href="<?= htmlspecialchars(rtrim(ltSiteUrl(), '/') . '/index.php/ThemeStory/ManageComments', ENT_QUOTES, 'UTF-8') ?>"
-        ><span class="ts-quick-icon ts-quick-icon--mint"
-          ><i class="bi bi-chat-dots"></i></span
-        ><span
-          ><strong>Review comments</strong
-          ><small>12 comments need attention</small></span
-        ><i class="bi bi-chevron-right"></i
-      ></a>
-      <button class="ts-quick-action" type="button" data-modal-open="category">
-        <span class="ts-quick-icon ts-quick-icon--blue"
-          ><i class="bi bi-collection"></i></span
-        ><span
-          ><strong>Add a category</strong
-          ><small>Organise your stories</small></span
-        ><i class="bi bi-chevron-right"></i>
-      </button>
-      <a
-        class="ts-quick-action"
-        href="<?= htmlspecialchars(rtrim(ltSiteUrl(), '/') . '/index.php/ThemeStory/ManageReports', ENT_QUOTES, 'UTF-8') ?>"
-        ><span class="ts-quick-icon ts-quick-icon--orange"
-          ><i class="bi bi-graph-up-arrow"></i></span
-        ><span
-          ><strong>View reports</strong
-          ><small>See how content performs</small></span
-        ><i class="bi bi-chevron-right"></i
-      ></a>
-    </aside>
-  </div>
 
-  <section class="ts-panel ts-category-overview">
-    <div class="ts-panel-heading">
-      <div>
-        <h2>Category overview</h2>
-        <p>How your stories are distributed.</p>
-      </div>
-      <a
-        class="ts-text-link"
-        href="<?= htmlspecialchars(rtrim(ltSiteUrl(), '/') . '/index.php/ThemeStory/ManageCategory', ENT_QUOTES, 'UTF-8') ?>"
-        >Manage categories <i class="bi bi-arrow-right"></i
-      ></a>
-    </div>
-    <div class="ts-category-bars">
-      <div class="ts-category-bar">
-        <div><span>Mindful living</span><strong>36 stories</strong></div>
-        <div class="ts-progress"><span style="width: 78%"></span></div>
-      </div>
-      <div class="ts-category-bar">
-        <div><span>Creativity</span><strong>28 stories</strong></div>
-        <div class="ts-progress ts-progress--mint">
-          <span style="width: 61%"></span>
-        </div>
-      </div>
-      <div class="ts-category-bar">
-        <div><span>Productivity</span><strong>22 stories</strong></div>
-        <div class="ts-progress ts-progress--blue">
-          <span style="width: 48%"></span>
-        </div>
-      </div>
-      <div class="ts-category-bar">
-        <div><span>Community</span><strong>18 stories</strong></div>
-        <div class="ts-progress ts-progress--orange">
-          <span style="width: 39%"></span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Row markup stays in this HTML view; JavaScript only fills it with API data. -->
-  <template id="recent-story-row-template">
-    <tr data-post-id="">
-      <td>
-        <div class="ts-story-cell">
-          <span class="ts-story-thumb ts-thumb--purple" data-post-thumb
-            ><i class="bi bi-file-earmark-text"></i></span
-          ><span
-            ><strong data-post-title></strong><small data-post-category></small
-          ></span>
-        </div>
-      </td>
-      <td data-post-status></td>
-      <td data-post-views></td>
-      <td data-post-published></td>
-      <td>
-        <a
-          class="ts-icon-button"
-          href="<?= htmlspecialchars(rtrim(ltSiteUrl(), '/') . '/index.php/ThemeStory/ManagePost', ENT_QUOTES, 'UTF-8') ?>"
-          aria-label="Manage stories"
-          title="Manage stories"
-          ><i class="bi bi-three-dots"></i
-        ></a>
-      </td>
-    </tr>
-  </template>
+    <template id="recent-story-row-template">
+        <tr data-post-id="">
+            <td>
+                <div class="ts-story-cell">
+                    <span class="ts-story-thumb ts-thumb--purple" data-post-thumb>
+                        <i class="bi bi-file-earmark-text"></i>
+                    </span>
+                    <span>
+                        <strong data-post-title></strong>
+                        <small data-post-category></small>
+                    </span>
+                </div>
+            </td>
+            <td data-post-status></td>
+            <td data-post-views></td>
+            <td data-post-published></td>
+            <td>
+                <a
+                    class="ts-icon-button"
+                    href="<?= htmlspecialchars(rtrim(ltSiteUrl(), '/') . '/ThemeStory/ManagePost', ENT_QUOTES, 'UTF-8') ?>"
+                    aria-label="Manage stories"
+                    title="Manage stories"
+                >
+                    <i class="bi bi-three-dots"></i>
+                </a>
+            </td>
+        </tr>
+    </template>
 </section>

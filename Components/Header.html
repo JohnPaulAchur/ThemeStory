@@ -22,23 +22,23 @@
         <span class="story-ticker__divider" aria-hidden="true"></span>
 
         <div class="story-ticker__viewport">
-            <div class="story-ticker__track">
+            <div class="story-ticker__track" data-story-highlight-track>
 
                 <div class="story-ticker__group">
-                    <span>Fresh ideas, new stories and perspectives worth exploring</span>
+                    <span>Discover the latest stories</span>
                     <span class="story-ticker__dot">●</span>
-                    <span>Discover something new on Story today</span>
+                    <span>Fresh ideas and perspectives</span>
                     <span class="story-ticker__dot">●</span>
-                    <span>Thoughtful reads. Fresh perspectives. Every day.</span>
+                    <span>Thoughtful reads worth exploring</span>
                     <span class="story-ticker__dot">●</span>
                 </div>
 
                 <div class="story-ticker__group" aria-hidden="true">
-                    <span>Fresh ideas, new stories and perspectives worth exploring</span>
+                    <span>Discover the latest stories</span>
                     <span class="story-ticker__dot">●</span>
-                    <span>Discover something new on Story today</span>
+                    <span>Fresh ideas and perspectives</span>
                     <span class="story-ticker__dot">●</span>
-                    <span>Thoughtful reads. Fresh perspectives. Every day.</span>
+                    <span>Thoughtful reads worth exploring</span>
                     <span class="story-ticker__dot">●</span>
                 </div>
 
@@ -47,7 +47,6 @@
 
     </div>
 </div>
-
 
 <!-- <header
     class="story-header animate__animated animate__fadeIn"
@@ -64,12 +63,36 @@
     
     <div class="story-header__inner">
 
-        <a class="story-brand"
+        <!-- <a class="story-brand"
            href="<?= htmlspecialchars(ltSiteUrl() . '/ThemeStory/Home', ENT_QUOTES, 'UTF-8') ?>"
            aria-label="Story home">
             <span class="bi bi-journal-richtext story-brand__mark"></span>
             <span class="story-brand__name">ThemeStory</span>
+        </a> -->
+
+
+        <a class="story-brand"
+        href="<?= htmlspecialchars(ltSiteUrl() . '/ThemeStory/Home', ENT_QUOTES, 'UTF-8') ?>"
+        aria-label="<?= htmlspecialchars(ltSiteName(), ENT_QUOTES, 'UTF-8') ?> home">
+
+            <?php if (ltSiteLogoUrl()) : ?>
+                <img
+                    class="story-brand__mark"
+                    src="<?= htmlspecialchars(ltSiteLogoUrl(), ENT_QUOTES, 'UTF-8') ?>"
+                    alt=""
+                >
+            <?php else : ?>
+                <span
+                    class="bi bi-journal-richtext story-brand__mark"
+                    aria-hidden="true">
+                </span>
+            <?php endif; ?>
+
+            <span class="story-brand__name">
+                <?= htmlspecialchars(ltSiteName(), ENT_QUOTES, 'UTF-8') ?>
+            </span>
         </a>
+
 
         <nav class="story-nav" aria-label="Main navigation">
             <div class="story-nav__item story-stories-menu" data-dropdown>
@@ -291,6 +314,14 @@
                         <span>
                             <strong>About Story</strong>
                             <small>Learn more about us</small>
+                        </span>
+                    </a>
+
+                    <a class="story-dropdown__link"
+                       href="<?= htmlspecialchars(ltSiteUrl() . '/ThemeStory/DashboardPage', ENT_QUOTES, 'UTF-8') ?>">
+                        <span>
+                            <strong>Dashboard</strong>
+                            <small>Access the dashboard panel</small>
                         </span>
                     </a>
                 </div>

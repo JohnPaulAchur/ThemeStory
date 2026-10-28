@@ -20,6 +20,113 @@
         const storiesUrl = header.dataset.storiesUrl;
         const blogDetailsUrl = header.dataset.blogDetailsUrl;
 
+        
+
+        /* =====================================================
+        DYNAMIC STORY HIGHLIGHTS
+        ===================================================== */
+
+        async function loadStoryHighlights() {
+            const ticker = document.querySelector("[data-story-ticker]");
+            const track = ticker?.querySelector("[data-story-highlight-track]");
+
+            if (!ticker || !track || !postsEndpoint || !blogDetailsUrl) {
+                return;
+            }
+
+            try {
+                const url = new URL(postsEndpoint, window.location.href);
+
+                url.searchParams.set("page", "1");
+                url.searchParams.set("limit", "10");
+                url.searchParams.set("category", "0");
+                url.searchParams.set("sort", "latest");
+
+                const response = await fetch(url.href, {
+                    method: "GET",
+                    credentials: "same-origin",
+                    headers: {
+                        Accept: "application/json"
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error("Unable to load story highlights.");
+                }
+
+                const payload = await response.json();
+
+                if (
+                    payload.responseCategory !== undefined &&
+                    Number(payload.responseCategory) !== 200
+                ) {
+                    throw new Error("The stories API returned an error.");
+                }
+
+                const data = payload.responseData;
+
+                const posts = Array.isArray(data)
+                    ? data
+                    : Array.isArray(data?.data)
+                        ? data.data
+                        : Array.isArray(data?.posts)
+                            ? data.posts
+                            : [];
+
+                const stories = posts.filter(post => post.slug);
+
+                if (!stories.length) {
+                    return;
+                }
+
+                function createStoryGroup() {
+                    const group = document.createElement("div");
+                    group.className = "story-ticker__group";
+
+                    stories.forEach((post, index) => {
+                        const link = document.createElement("a");
+
+                        link.href = makeUrl(blogDetailsUrl, {
+                            slug: post.slug
+                        });
+
+                        link.textContent = String(
+                            post.title || post.postTitle || "Untitled story"
+                        );
+
+                        link.className = "story-ticker__story-link";
+
+                        group.appendChild(link);
+
+                        const dot = document.createElement("span");
+                        dot.className = "story-ticker__dot";
+                        dot.textContent = "●";
+                        dot.setAttribute("aria-hidden", "true");
+
+                        group.appendChild(dot);
+                    });
+
+                    return group;
+                }
+
+                track.replaceChildren(
+                    createStoryGroup(),
+                    createStoryGroup()
+                );
+
+                track.children[1].setAttribute("aria-hidden", "true");
+            } catch (error) {
+                console.error(
+                    "ThemeStory: unable to load story highlights.",
+                    error
+                );
+
+                // Preserve the existing ticker if the request fails.
+            }
+        }
+
+
+
         const categoryList = header.querySelector("[data-category-list]");
         const categoryTemplate = header.querySelector("[data-category-template]");
 
@@ -748,6 +855,7 @@
            ===================================================== */
 
         loadCategories();
+        loadStoryHighlights();
     }
 
     if (document.readyState === "loading") {

@@ -3,7 +3,7 @@
     <div>
       <span class="ts-eyebrow">INSIGHTS</span>
       <h1>Reports &amp; statistics</h1>
-      <p>Explore sample performance metrics for your content and community.</p>
+      <p>View available content performance metrics and statistics from MdBlog.</p>
     </div>
     <button
       class="ts-button ts-button--subtle"
@@ -13,110 +13,125 @@
       <i class="bi bi-download"></i> Export summary
     </button>
   </div>
+
   <div class="ts-stat-grid">
     <article class="ts-stat-card">
       <div class="ts-stat-top">
         <span class="ts-stat-icon ts-stat-icon--purple"
           ><i class="bi bi-eye"></i></span
-        ><span class="ts-stat-change ts-change-positive">+14.8%</span>
+        >
+        <span class="ts-stat-change">—</span>
       </div>
       <p>Page views</p>
-      <div class="ts-stat-value">24,860</div>
-      <small>Sample month-to-date views</small>
+      <div class="ts-stat-value" data-report-stat="views">—</div>
+      <small>Total recorded story views</small>
     </article>
+
     <article class="ts-stat-card">
       <div class="ts-stat-top">
         <span class="ts-stat-icon ts-stat-icon--mint"
           ><i class="bi bi-people"></i></span
-        ><span class="ts-stat-change ts-change-positive">+9.1%</span>
+        >
+        <span class="ts-stat-neutral">Unavailable</span>
       </div>
       <p>Readers</p>
-      <div class="ts-stat-value">8,420</div>
-      <small>Sample unique readers</small>
+      <div class="ts-stat-value" data-report-stat="readers">—</div>
+      <small>Unique reader data unavailable</small>
     </article>
+
     <article class="ts-stat-card">
       <div class="ts-stat-top">
         <span class="ts-stat-icon ts-stat-icon--blue"
           ><i class="bi bi-chat-heart"></i></span
-        ><span class="ts-stat-change ts-change-positive">+5.6%</span>
+        >
+        <span class="ts-stat-change">—</span>
       </div>
       <p>Engagements</p>
-      <div class="ts-stat-value">1,284</div>
-      <small>Comments and reactions</small>
+      <div class="ts-stat-value" data-report-stat="engagements">—</div>
+      <small>Recorded likes and comments</small>
     </article>
+
     <article class="ts-stat-card">
       <div class="ts-stat-top">
         <span class="ts-stat-icon ts-stat-icon--orange"
           ><i class="bi bi-bookmark-check"></i></span
-        ><span class="ts-stat-neutral">Steady</span>
+        >
+        <span class="ts-stat-neutral">Live data</span>
       </div>
       <p>Published stories</p>
-      <div class="ts-stat-value">103</div>
-      <small>Currently live</small>
+      <div class="ts-stat-value" data-report-stat="published">—</div>
+      <small>Stories currently published</small>
     </article>
   </div>
+
   <div class="ts-content-grid ts-content-grid--wide">
     <section class="ts-panel">
       <div class="ts-panel-heading">
         <div>
           <h2>Views by week</h2>
-          <p>Illustrative sample data for this month.</p>
+          <p>Weekly view history is unavailable from the documented API.</p>
         </div>
         <span class="ts-chart-legend"><i></i> Story views</span>
       </div>
-      <div
-        class="ts-chart"
-        role="img"
-        aria-label="Bar chart showing weekly story views"
-      >
-        <div class="ts-chart-y">
-          <span>8k</span><span>6k</span><span>4k</span><span>2k</span
-          ><span>0</span>
-        </div>
-        <div class="ts-chart-plot">
-          <div class="ts-chart-gridline"></div>
-          <div class="ts-chart-gridline"></div>
-          <div class="ts-chart-gridline"></div>
-          <div class="ts-chart-gridline"></div>
-          <div class="ts-chart-bars">
-            <div class="ts-chart-column">
-              <span style="height: 48%"></span><small>Week 1</small>
-            </div>
-            <div class="ts-chart-column">
-              <span style="height: 66%"></span><small>Week 2</small>
-            </div>
-            <div class="ts-chart-column">
-              <span style="height: 58%"></span><small>Week 3</small>
-            </div>
-            <div class="ts-chart-column">
-              <span style="height: 82%"></span><small>Week 4</small>
-            </div>
-          </div>
-        </div>
+
+      <div class="ts-chart" data-report-chart>
+        <p class="text-muted mb-0">
+          Weekly view history is unavailable from the documented API.
+        </p>
       </div>
     </section>
+
     <aside class="ts-panel ts-report-highlight">
       <span class="ts-stat-icon ts-stat-icon--mint"
         ><i class="bi bi-graph-up-arrow"></i
       ></span>
-      <h2>Your content is growing</h2>
-      <p>
-        In this sample dashboard, views and reader engagement are trending
-        upward. Connect real analytics later to replace these illustrative
-        numbers.
+      <h2>Content insights</h2>
+      <p data-report-insight>
+        Loading available content metrics…
       </p>
       <div class="ts-report-highlight-stat">
-        <strong>+14.8%</strong><span>sample view growth</span>
+        <strong>—</strong>
+        <span>Historical growth unavailable</span>
       </div>
     </aside>
   </div>
+
+ 
+  <!-- Recorded Views by Publication Week -->
+  <section class="ts-panel ts-report-publication-chart">
+    <div class="ts-panel-heading">
+      <div>
+        <h2>Recorded views by publication week</h2>
+        <p>
+          Recorded views grouped by the publication date of each story.
+        </p>
+      </div>
+      <span class="ts-chart-legend">
+        <i></i> Recorded story views
+      </span>
+    </div>
+
+    <div
+      class="ts-chart"
+      data-report-publication-chart
+      role="img"
+      aria-label="Bar chart showing recorded story views grouped by publication week"
+    >
+      <p class="text-muted mb-0">
+        Loading publication-week view data…
+      </p>
+    </div>
+  </section>
+
+
   <section class="ts-panel">
     <div class="ts-panel-heading">
       <div>
         <h2>Report summary</h2>
-        <p>Sample monthly totals, ready to export as CSV.</p>
+        <p>Available content totals, ready to export as CSV.</p>
       </div>
     </div>
+
     <div class="ts-table-wrap">
       <table
         class="ts-table"
@@ -126,35 +141,16 @@
         <thead>
           <tr>
             <th>Metric</th>
-            <th>Current period</th>
+            <th>Current total</th>
             <th>Previous period</th>
-            <th>Change</th>
+            <th>Availability</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody data-report-summary>
           <tr>
-            <td>Page views</td>
-            <td>24,860</td>
-            <td>21,654</td>
-            <td><span class="ts-status ts-status--published">+14.8%</span></td>
-          </tr>
-          <tr>
-            <td>Unique readers</td>
-            <td>8,420</td>
-            <td>7,719</td>
-            <td><span class="ts-status ts-status--published">+9.1%</span></td>
-          </tr>
-          <tr>
-            <td>Engagements</td>
-            <td>1,284</td>
-            <td>1,216</td>
-            <td><span class="ts-status ts-status--published">+5.6%</span></td>
-          </tr>
-          <tr>
-            <td>Published stories</td>
-            <td>103</td>
-            <td>98</td>
-            <td><span class="ts-status ts-status--published">+5.1%</span></td>
+            <td colspan="4" class="text-center py-4">
+              Loading report data…
+            </td>
           </tr>
         </tbody>
       </table>

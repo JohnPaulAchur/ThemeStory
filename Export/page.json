@@ -232,5 +232,23 @@
         "description": null,
         "themeLayout": "Default.html",
         "themeLayoutPackage": "ThemeStory"
+    },
+    {
+        "ltId": "179317927987769",
+        "packageName": "ThemeStory",
+        "pageName": "ResetPassword.html",
+        "pageType": "theme",
+        "routeContent": null,
+        "routeFileName": null,
+        "routeHandler": null,
+        "routeMethod": null,
+        "routePath": "\/ThemeStory\/ResetPassword",
+        "routePayload": null,
+        "routeResponse": null,
+        "routeUpdateStatus": 0,
+        "apiToAllowRouters": null,
+        "description": null,
+        "themeLayout": "Dashboard.html",
+        "themeLayoutPackage": "ThemeStory"
     }
 ]

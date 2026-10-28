@@ -4,7 +4,7 @@
 
 
     const BASE = window.ThemeStoryConfig.siteBase;
-    const API_BASE = BASE + "index.php/blogs/";
+    const API_BASE = BASE + "blogs/";
     const POSTS_ENDPOINT = API_BASE + "filter/posts";
     const FALLBACK_AVATAR = "https://randomuser.me/api/portraits/men/43.jpg";
     const FEATURED_SLIDE_INTERVAL = 5000;
@@ -687,7 +687,7 @@
             const slug = text(post.slug || post.id);
 
             const url = BASE +
-                "index.php/ThemeStory/BlogDetails?slug=" +
+                "ThemeStory/BlogDetails?slug=" +
                 encodeURIComponent(slug);
 
             const media = getMedia(post);

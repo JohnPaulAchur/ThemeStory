@@ -1,65 +1,164 @@
-<section class="ts-page" data-view-name="UserProfile">
-    <div class="ts-page-heading">
+
+<!-- ThemeStory User Profile Page -->
+
+<section class="ts-page" data-view-name="UserProfile" id="ts-user-profile">
+
+  <!-- Page Heading -->
+  <div class="ts-page-heading">
+    <div>
+      <span class="ts-eyebrow">ACCOUNT SETTINGS</span>
+      <h1>My profile</h1>
+      <p>Manage the profile details shown in your workspace.</p>
+    </div>
+
+    <span class="ts-status" id="ts-profile-status">
+      <i class="bi bi-arrow-repeat"></i>
+      Loading profile...
+    </span>
+  </div>
+
+  <!-- Profile Layout -->
+  <div class="ts-profile-layout">
+
+    <!-- Profile Summary Card -->
+    <section class="ts-panel ts-profile-card">
+
+      <div class="ts-profile-cover"></div>
+
+      <div class="ts-profile-avatar-wrap">
+        <img
+          class="img ts-profile-avatar"
+          id="ts-profile-avatar"
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Crect width='160' height='160' fill='%23f1edff'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-size='58' fill='%237652d5'%3EU%3C/text%3E%3C/svg%3E"
+          alt="Profile avatar"
+        />
+      </div>
+
+      <div class="ts-profile-identity">
+        <h2 id="ts-profile-name">Loading profile...</h2>
+
+        <p id="ts-profile-username">Loading username...</p>
+
+        <span class="ts-status ts-status--published">
+          <i class="bi bi-check-circle"></i>
+          Active account
+        </span>
+      </div>
+
+      <!-- Profile Metadata -->
+      <div class="ts-profile-meta">
+
         <div>
-            <span class="ts-eyebrow">ACCOUNT SETTINGS</span>
-            <h1>My profile</h1>
-            <p>Manage the profile details shown in your workspace.</p>
+          <i class="bi bi-envelope"></i>
+
+          <span>
+            <small>Email</small>
+            <strong id="ts-profile-email">Loading...</strong>
+          </span>
         </div>
-        <span class="ts-demo-note"><i class="bi bi-info-circle"></i> Demo form — not saved</span>
-    </div>
-    <div class="ts-profile-layout">
-        <section class="ts-panel ts-profile-card">
-            <div class="ts-profile-cover"></div>
-            <div class="ts-profile-avatar-wrap">
-                <img class="img ts-profile-avatar" src="https://images.pexels.com/photos/8937476/pexels-photo-8937476.jpeg" alt="Rectangle 2" />
-            </div>
-            <div class="ts-profile-identity">
-                <h2>Admin User</h2>
-                <p>Workspace administrator</p>
-                <span class="ts-status ts-status--published">Active account</span>
-            </div>
-            <div class="ts-profile-meta">
-                <div>
-                    <i class="bi bi-envelope"></i><span><small>Email</small><strong>admin@example.com</strong></span>
-                </div>
-                <div>
-                    <i class="bi bi-calendar3"></i><span><small>Member since</small><strong>January 2026</strong></span>
-                </div>
-            </div>
-        </section>
-        <section class="ts-panel">
-            <div class="ts-panel-heading">
-                <div>
-                    <h2>Profile information</h2>
-                    <p>Update the sample details below.</p>
-                </div>
-            </div>
-            <form class="ts-form-grid" data-static-form>
-                <label class="ts-field">
-                    <span>Display name</span>
-                    <input name="displayName" value="Admin User"
-                        required />
-                </label>
-                <label class="ts-field"><span>Email address</span><input name="email"
-                        type="email" value="admin@example.com" required />
-                </label>
-                <label
-                    class="ts-field"><span>Role</span><input value="Workspace administrator" disabled /></label><label
-                    class="ts-field"><span>Timezone</span><select name="timezone">
-                        <option>West Africa Time (UTC+1)</option>
-                        <option>Greenwich Mean Time (UTC+0)</option>
-                        <option>Central European Time (UTC+1)</option>
-                    </select>
-                </label>
-                <label class="ts-field ts-field--full"><span>Short bio</span><textarea name="bio"
-                        rows="4" placeholder="A short introduction...">Managing stories and the ThemeStory workspace.</textarea>
-                </label>
-                <div class="ts-form-actions">
-                    <button class="ts-button ts-button--primary" type="submit">
-                        <i class="bi bi-check2"></i> Save changes
-                    </button>
-                </div>
-            </form>
-        </section>
-    </div>
+
+        <div>
+          <i class="bi bi-person-badge"></i>
+
+          <span>
+            <small>Account</small>
+            <strong id="ts-profile-account">Member</strong>
+          </span>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Profile Information Form -->
+    <section class="ts-panel">
+
+      <div class="ts-panel-heading">
+        <div>
+          <h2>Profile information</h2>
+          <p>Update your personal profile details.</p>
+        </div>
+      </div>
+
+      
+<form class="ts-form-grid" id="ts-profile-form">
+
+  <label class="ts-field">
+    <span>Display name</span>
+    <input type="text" id="ts-profile-fullname" readonly />
+  </label>
+
+  <label class="ts-field">
+    <span>Username</span>
+    <input type="text" id="ts-profile-username-input" readonly />
+  </label>
+
+  <label class="ts-field">
+    <span>Email address</span>
+    <input type="email" id="ts-profile-email-input" readonly />
+  </label>
+
+  <label class="ts-field">
+    <span>Location</span>
+    <input type="text" name="location" id="ts-profile-location"
+           placeholder="Enter your location" />
+  </label>
+
+  <label class="ts-field ts-field--full">
+    <span>Short bio</span>
+    <textarea name="bio" id="ts-profile-bio" rows="4"
+              placeholder="Write a short introduction..."></textarea>
+  </label>
+
+  <label class="ts-field">
+    <span>Facebook URL</span>
+    <input type="url" name="facebook" id="ts-profile-facebook"
+           placeholder="https://facebook.com/..." />
+  </label>
+
+  <label class="ts-field">
+    <span>Twitter URL</span>
+    <input type="url" name="twitter" id="ts-profile-twitter"
+           placeholder="https://x.com/..." />
+  </label>
+
+  <label class="ts-field ts-field--full">
+    <span>LinkedIn URL</span>
+    <input type="url" name="linkedin" id="ts-profile-linkedin"
+           placeholder="https://linkedin.com/in/..." />
+  </label>
+
+  <label class="ts-field ts-field--full">
+    <span>Profile avatar (JPEG, PNG or WebP)</span>
+    <input type="file" name="avatarFile" id="ts-profile-avatar-file"
+           accept="image/jpeg,image/png,image/webp" />
+  </label>
+
+  <div class="ts-form-actions">
+    <button class="ts-button ts-button--primary"
+            id="ts-profile-save" type="submit">
+      <i class="bi bi-check2"></i> Save changes
+    </button>
+  </div>
+
+</form>
+
+<p id="ts-profile-message" role="status" aria-live="polite" hidden></p>
+
+
+      <!-- Dynamic Success and Error Messages -->
+      <p
+        id="ts-profile-message"
+        role="status"
+        aria-live="polite"
+        hidden
+      ></p>
+
+    </section>
+
+  </div>
+
 </section>
+    
+
+<!-- ThemeStory User Profile JavaScript -->

@@ -3,7 +3,7 @@
     "use strict";
 
     const SITE_BASE = window.ThemeStoryConfig.siteBase;
-    const API_URL = SITE_BASE + "index.php/blogs/filter/posts";
+    const API_URL = SITE_BASE + "blogs/filter/posts";
     const POSTS_PER_PAGE = 6;
     const SEARCH_DELAY = 350;
 
@@ -182,7 +182,7 @@
         if (!slug) return "#";
 
         return SITE_BASE +
-            "index.php/ThemeStory/BlogDetails?slug=" +
+            "ThemeStory/BlogDetails?slug=" +
             encodeURIComponent(String(slug));
     }
 

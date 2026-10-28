@@ -124,5 +124,14 @@
         "pageId": "179266504524423",
         "sortOrder": 8,
         "publishSource": "content"
+    },
+    {
+        "ltId": 179317927981311,
+        "contentId": "179317927918747",
+        "contentType": "theme",
+        "packageName": "ThemeStory",
+        "pageId": "179317927987769",
+        "sortOrder": 8,
+        "publishSource": "content"
     }
 ]

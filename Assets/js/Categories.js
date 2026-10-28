@@ -10,8 +10,8 @@
 
 
     const SITE_BASE = window.ThemeStoryConfig.siteBase;
-    const CATEGORIES_API_URL = SITE_BASE + "index.php/blogs/categories";
-    const POSTS_API_URL = SITE_BASE + "index.php/blogs/posts";
+    const CATEGORIES_API_URL = SITE_BASE + "blogs/categories";
+    const POSTS_API_URL = SITE_BASE + "blogs/posts";
     const grid = page.querySelector("[data-category-grid]");
     const searchInput = page.querySelector("[data-category-search]");
     const emptyState = page.querySelector("[data-category-empty]");
@@ -47,11 +47,54 @@
         return payload && String(payload.responseCategory) === "200";
     }
 
+
+function friendlyApiError(payload, fallback) {
+    const message = String(
+        payload?.responseResult || payload?.message || payload?.error || ""
+    ).trim();
+
+    if (/duplicate entry|integrity constraint violation|unique constraint/i.test(message)) {
+        return /category/i.test(message)
+            ? "This category already exists. Please use a different category name."
+            : "This category may already exist. Please check the category name and try again.";
+    }
+
+    return message || fallback;
+}
+
+
+    
     async function apiRequest(url, options) {
-        const response = await fetch(url, Object.assign({
-            credentials: "same-origin",
-            headers: { "Accept": "application/json" }
-        }, options || {}));
+        const config = options || {};
+        const tokenName = window.ThemeStoryConfig?.tokenName;
+
+        let token = null;
+
+        try {
+            token = tokenName ? localStorage.getItem(tokenName) : null;
+        } catch (_) {
+            throw new Error("Unable to access your sign-in session.");
+        }
+
+        if (!token || !token.trim()) {
+            throw new Error("Please sign in first.");
+        }
+
+        // const headers = new Headers(config.headers || {});
+        // headers.set("Accept", "application/json");
+        // headers.set("Authorization", "Bearer " + token);
+
+        const headers = {
+            ...(config.headers || {}),
+            "Accept": "application/json",
+            "Authorization": "Bearer " + token
+        };
+
+        const response = await fetch(url, {
+            ...config,
+            credentials: config.credentials || "same-origin",
+            headers: headers
+        });
 
         let payload;
         try {
@@ -60,11 +103,28 @@
             throw new Error("The server returned an unreadable response.");
         }
 
+        // if (!response.ok || !isSuccess(payload)) {
+        //     throw new Error(
+        //         payload?.responseResult ||
+        //         payload?.message ||
+        //         ("Request failed (" + response.status + ").")
+        //     );
+        // }
+
+
+        
         if (!response.ok || !isSuccess(payload)) {
-            throw new Error(payload?.responseResult || payload?.message || ("Request failed (" + response.status + ")."));
+            throw new Error(
+                friendlyApiError(payload, "The request failed (" + response.status + ").")
+            );
         }
+
+
+
         return payload;
     }
+
+
 
     function unwrapArray(payload) {
         const data = payload && payload.responseData;
@@ -365,4 +425,19 @@
 
     if (searchInput) searchInput.addEventListener("input", renderCategories);
     loadData();
+
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("openCategoryModal") === "1") {
+        params.delete("openCategoryModal");
+
+        const cleanUrl =
+            window.location.pathname +
+            (params.toString() ? "?" + params.toString() : "") +
+            window.location.hash;
+
+        window.history.replaceState({}, "", cleanUrl);
+
+        setModalFieldMarkup(null);
+    }
 })();

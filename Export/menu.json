@@ -166,5 +166,17 @@
         "slug": null,
         "target": "_blank",
         "sortOrder": null
+    },
+    {
+        "ltId": "179317927934560",
+        "packageName": "ThemeStory",
+        "menuLevel": 2,
+        "menuName": "ResetPassword.html",
+        "contentName": "ResetPassword.html",
+        "parentMenuId": "179240608125393",
+        "routePath": "\/ThemeStory\/ResetPassword",
+        "slug": null,
+        "target": "_blank",
+        "sortOrder": null
     }
 ]

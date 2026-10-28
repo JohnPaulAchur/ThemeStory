@@ -92,51 +92,77 @@
         return [];
     }
 
+    
     async function apiRequest(url, options) {
-        const response = await fetch(
-            url,
-            Object.assign(
-                {
-                    method: "GET",
-                    credentials: "same-origin",
-                    headers: {
-                        Accept: "application/json"
-                    }
-                },
-                options || {}
-            )
-        );
+        const config = options || {};
+        const tokenName = window.ThemeStoryConfig?.tokenName;
+
+        let token = null;
+
+        try {
+            token = tokenName ? localStorage.getItem(tokenName) : null;
+        } catch (_) {
+            throw new Error("Unable to access your sign-in session.");
+        }
+
+        if (!token || !token.trim()) {
+            throw new Error("Please sign in first.");
+        }
+
+        // const headers = new Headers(config.headers || {});
+        // headers.set("Accept", "application/json");
+        // headers.set("Authorization", "Bearer " + token);
+
+        const headers = {
+            ...(config.headers || {}),
+            "Accept": "application/json",
+            "Authorization": "Bearer " + token
+        };
+
+        const response = await fetch(url, {
+            ...config,
+            method: config.method || "GET",
+            credentials: config.credentials || "same-origin",
+            headers: headers
+        });
 
         const responseText = await response.text();
         let payload = {};
 
         try {
             payload = responseText ? JSON.parse(responseText) : {};
-        } catch (error) {
+        } catch (_) {
             payload = { message: responseText };
         }
 
-        if (!response.ok) {
-            throw new Error(
-                payload.message ||
-                payload.responseResult ||
-                payload.error ||
-                "HTTP " + response.status
-            );
-        }
-
-        // The API specification defines responseCategory 100 as failure.
-        if (
-            payload &&
-            String(payload.responseCategory) === "100"
-        ) {
-            throw new Error(
-                payload.responseResult || "The API rejected the request."
-            );
-        }
-
-        return payload;
+        
+    // MdBlog uses this response when no comments exist.
+    // Return an empty list so the page renders its normal empty state.
+    if (
+        payload &&
+        String(payload.responseCategory) === "100" &&
+        String(payload.responseResult || "").trim().toLowerCase() === "no comments found"
+    ) {
+        return [];
     }
+
+    if (!response.ok) {
+        throw new Error(
+            payload.message ||
+            payload.responseResult ||
+            payload.error ||
+            "HTTP " + response.status
+        );
+    }
+
+    if (payload && String(payload.responseCategory) === "100") {
+        throw new Error(payload.responseResult || "The API rejected the request.");
+    }
+
+    return payload;
+
+    }
+
 
     function getId(comment) {
         return comment.ltId || comment.id || comment.commentId || "";
@@ -526,7 +552,7 @@
 
             if (loadingNote) {
                 loadingNote.innerHTML =
-                    '<i class="bi bi-check-circle"></i> Live MdBlog data';
+                    '<i class="bi bi-check-circle"></i> Live data';
             }
         } catch (error) {
             comments = [];

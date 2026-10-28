@@ -183,12 +183,10 @@ html[data-story-theme="dark"] .story-brand {
     width: 42px;
     height: 42px;
     border-radius: 12px;
-    background: var(--story-green);
-    color: #FFFFFF;
     font-size: 23px;
     font-weight: 750;
     letter-spacing: -1.5px;
-    box-shadow: 0 5px 12px rgba(32, 61, 51, 0.15);
+    /* box-shadow: 0 5px 12px rgba(32, 61, 51, 0.15); */
 }
 
 html[data-story-theme="dark"] .story-brand__mark {
@@ -1286,4 +1284,11 @@ html[data-story-theme="dark"] .story-notification-button::after {
     .story-header .story-post-link {
         transition: none;
     }
+}
+
+
+.story-ticker__story-link {
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
 }

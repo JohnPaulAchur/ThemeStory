@@ -1,73 +1,343 @@
-<section class="ts-auth-layout" data-view-name="Auth" aria-label="ThemeStory account access">
-    <aside class="ts-auth-story-panel" aria-label="Welcome to ThemeStory">
-        <div class="ts-auth-orbit ts-auth-orbit--one"></div>
-        <div class="ts-auth-orbit ts-auth-orbit--two"></div>
-        <div class="ts-auth-story-content">
-            <span class="ts-auth-kicker"><i class="bi bi-stars"></i> YOUR CREATIVE WORKSPACE</span>
-            <div class="ts-auth-illustration" aria-hidden="true">
-                <span class="ts-auth-illustration-paper ts-auth-illustration-paper--back"></span>
-                <span class="ts-auth-illustration-paper ts-auth-illustration-paper--front"><i class="bi bi-journal-richtext"></i><b></b><b></b><b></b></span>
-                <span class="ts-auth-illustration-spark ts-auth-illustration-spark--a"><i class="bi bi-stars"></i></span>
-                <span class="ts-auth-illustration-spark ts-auth-illustration-spark--b"><i class="bi bi-feather"></i></span>
-            </div>
-            <h1>Your stories.<br><span>Your space.</span></h1>
-            <p>A calm, thoughtful space to publish ideas, grow your audience, and keep every story moving.</p>
-            <div class="ts-auth-trust"><span class="ts-auth-trust-icon"><i class="bi bi-shield-check"></i></span><span><strong>A little space to create</strong><small>Sign in securely to your ThemeStory workspace.</small></span></div>
-        </div>
-        <div class="ts-auth-panel-footer"><span>Made for ideas worth sharing.</span><span class="ts-auth-footer-dots"><i></i><i></i><i></i></span></div>
-    </aside>
-
-    <div class="ts-auth-form-side">
-        <section class="ts-auth-card">
-            <span class="ts-auth-icon"><i class="bi bi-journal-richtext"></i></span>
-            <span class="ts-eyebrow">THEMESTORY WORKSPACE</span>
-            <h2 data-auth-heading>Welcome back</h2>
-            <p class="ts-auth-intro" data-auth-intro>Sign in to continue managing your stories.</p>
-
-            <div class="ts-auth-tabs" role="tablist" aria-label="Account options">
-                <button class="ts-auth-tab is-active" type="button" role="tab" id="ts-auth-tab-signin" aria-selected="true" aria-controls="ts-auth-panel-signin" data-auth-tab="signin">Sign in</button>
-                <button class="ts-auth-tab" type="button" role="tab" id="ts-auth-tab-signup" aria-selected="false" aria-controls="ts-auth-panel-signup" data-auth-tab="signup">Create account</button>
-                <button class="ts-auth-tab" type="button" role="tab" id="ts-auth-tab-recovery" aria-selected="false" aria-controls="ts-auth-panel-recovery" data-auth-tab="recovery">Recover</button>
-            </div>
-
-            <div class="ts-auth-panel" id="ts-auth-panel-signin" role="tabpanel" aria-labelledby="ts-auth-tab-signin" data-auth-panel="signin">
-                <form data-static-form class="ts-auth-form">
-                    <label class="ts-field"><span>Email address</span><span class="ts-auth-input-wrap"><i class="bi bi-envelope"></i><input type="email" name="email" placeholder="you@example.com" autocomplete="username" required></span></label>
-                    <label class="ts-field"><span>Password</span><span class="ts-auth-input-wrap ts-password-field"><i class="bi bi-lock"></i><input type="password" name="password" placeholder="Enter your password" autocomplete="current-password" required><button type="button" class="ts-icon-button" data-password-toggle aria-label="Show password"><i class="bi bi-eye"></i></button></span></label>
-                    <div class="ts-auth-options"><label class="ts-check-field"><input type="checkbox" name="remember"><span>Remember me</span></label><button class="ts-auth-text-button" type="button" data-auth-go="recovery">Forgot password?</button></div>
-                    <button class="ts-button ts-button--primary ts-button--full ts-auth-submit" type="submit">Sign in to workspace <i class="bi bi-arrow-right"></i></button>
-                    <p class="ts-auth-demo-note"><i class="bi bi-info-circle"></i> Your data is Encrypted.</p>
-                </form>
-            </div>
-
-            <div class="ts-auth-panel" id="ts-auth-panel-signup" role="tabpanel" aria-labelledby="ts-auth-tab-signup" data-auth-panel="signup" hidden>
-                <form data-static-form class="ts-auth-form">
-                    <div class="ts-auth-name-row">
-                        <label class="ts-field"><span>First name</span><input type="text" name="first_name" placeholder="First name" autocomplete="given-name" required></label>
-                        <label class="ts-field"><span>Last name</span><input type="text" name="last_name" placeholder="Last name" autocomplete="family-name" required></label>
-                    </div>
-                    <label class="ts-field"><span>Email address</span><span class="ts-auth-input-wrap"><i class="bi bi-envelope"></i><input type="email" name="signup_email" placeholder="you@example.com" autocomplete="email" required></span></label>
-                    <label class="ts-field"><span>Create password</span><span class="ts-auth-input-wrap ts-password-field"><i class="bi bi-lock"></i><input type="password" name="signup_password" placeholder="At least 8 characters" autocomplete="new-password" minlength="8" required><button type="button" class="ts-icon-button" data-password-toggle aria-label="Show password"><i class="bi bi-eye"></i></button></span></label>
-                    <label class="ts-check-field ts-auth-terms"><input type="checkbox" name="terms" required><span>I agree to the terms of use and privacy policy.</span></label>
-                    <button class="ts-button ts-button--primary ts-button--full ts-auth-submit" type="submit">Create my account <i class="bi bi-arrow-right"></i></button>
-                    <p class="ts-auth-demo-note"><i class="bi bi-info-circle"></i> Preview mode: account creation is not connected yet.</p>
-                </form>
-            </div>
-
-            <div class="ts-auth-panel" id="ts-auth-panel-recovery" role="tabpanel" aria-labelledby="ts-auth-tab-recovery" data-auth-panel="recovery" hidden>
-                <div class="ts-auth-recovery-icon"><i class="bi bi-envelope-paper-heart"></i></div>
-                <h3 class="ts-auth-subheading">Let's get you back in</h3>
-                <p class="ts-auth-recovery-copy">Enter the email address linked to your account. If this were connected, we'd send you a secure recovery link.</p>
-                <form data-static-form class="ts-auth-form">
-                    <label class="ts-field"><span>Email address</span><span class="ts-auth-input-wrap"><i class="bi bi-envelope"></i><input type="email" name="recovery_email" placeholder="you@example.com" autocomplete="email" required></span></label>
-                    <button class="ts-button ts-button--primary ts-button--full ts-auth-submit" type="submit">Send recovery link <i class="bi bi-arrow-right"></i></button>
-                    <button class="ts-auth-back-to-signin" type="button" data-auth-go="signin"><i class="bi bi-arrow-left"></i> Back to sign in</button>
-                    <p class="ts-auth-demo-note"><i class="bi bi-info-circle"></i> Preview mode: recovery emails are not sent.</p>
-                </form>
-            </div>
-
-            <div class="ts-auth-card-footer"><span>Need a hand?</span><a href="mailto:support@example.com"><i class="bi bi-chat-dots"></i> Contact Support</a></div>
-        </section>
-        <p class="ts-auth-legal">© <?= date('Y') ?> ThemeStory <span>•</span> A home for your ideas</p>
+<section
+  class="ts-auth-layout"
+  data-view-name="Auth"
+  aria-label="ThemeStory account access"
+>
+  <aside class="ts-auth-story-panel" aria-label="Welcome to ThemeStory">
+    <div class="ts-auth-orbit ts-auth-orbit--one"></div>
+    <div class="ts-auth-orbit ts-auth-orbit--two"></div>
+    <div class="ts-auth-story-content">
+      <span class="ts-auth-kicker"
+        ><i class="bi bi-stars"></i> YOUR CREATIVE WORKSPACE</span
+      >
+      <div class="ts-auth-illustration" aria-hidden="true">
+        <span
+          class="ts-auth-illustration-paper ts-auth-illustration-paper--back"
+        ></span>
+        <span
+          class="ts-auth-illustration-paper ts-auth-illustration-paper--front"
+          ><i class="bi bi-journal-richtext"></i><b></b><b></b><b></b
+        ></span>
+        <span class="ts-auth-illustration-spark ts-auth-illustration-spark--a"
+          ><i class="bi bi-stars"></i
+        ></span>
+        <span class="ts-auth-illustration-spark ts-auth-illustration-spark--b"
+          ><i class="bi bi-feather"></i
+        ></span>
+      </div>
+      <h1>Your stories.<br /><span>Your space.</span></h1>
+      <p>
+        A calm, thoughtful space to publish ideas, grow your audience, and keep
+        every story moving.
+      </p>
+      <div class="ts-auth-trust">
+        <span class="ts-auth-trust-icon"
+          ><i class="bi bi-shield-check"></i></span
+        ><span
+          ><strong>A little space to create</strong
+          ><small>Sign in securely to your ThemeStory workspace.</small></span
+        >
+      </div>
     </div>
+    <div class="ts-auth-panel-footer">
+      <span>Made for ideas worth sharing.</span
+      ><span class="ts-auth-footer-dots"><i></i><i></i><i></i></span>
+    </div>
+  </aside>
+
+  <div class="ts-auth-form-side">
+    <section class="ts-auth-card">
+      <span class="ts-auth-icon"><i class="bi bi-journal-richtext"></i></span>
+      <span class="ts-eyebrow">THEMESTORY WORKSPACE</span>
+      <h2 data-auth-heading>Welcome back</h2>
+      <p class="ts-auth-intro" data-auth-intro>
+        Sign in to continue managing your stories.
+      </p>
+
+      <div class="ts-auth-tabs" role="tablist" aria-label="Account options">
+        <button
+          class="ts-auth-tab is-active"
+          type="button"
+          role="tab"
+          id="ts-auth-tab-signin"
+          aria-selected="true"
+          aria-controls="ts-auth-panel-signin"
+          data-auth-tab="signin"
+          tabindex="0"
+        >
+          Sign in
+        </button>
+        <button
+          class="ts-auth-tab"
+          type="button"
+          role="tab"
+          id="ts-auth-tab-signup"
+          aria-selected="false"
+          aria-controls="ts-auth-panel-signup"
+          data-auth-tab="signup"
+          tabindex="-1"
+        >
+          Create account
+        </button>
+        <button
+          class="ts-auth-tab"
+          type="button"
+          role="tab"
+          id="ts-auth-tab-recovery"
+          aria-selected="false"
+          aria-controls="ts-auth-panel-recovery"
+          data-auth-tab="recovery"
+          data-auth-go="recovery"
+          tabindex="-1"
+        >
+          Recover
+        </button>
+      </div>
+
+      <div
+        class="ts-auth-panel"
+        id="ts-auth-panel-signin"
+        role="tabpanel"
+        aria-labelledby="ts-auth-tab-signin"
+        data-auth-panel="signin"
+      >
+        <form data-static-form class="ts-auth-form">
+          <label class="ts-field"
+            ><span>Email address</span
+            ><span class="ts-auth-input-wrap"
+              ><i class="bi bi-envelope"></i
+              ><input
+                type="email"
+                name="email"
+                placeholder="you@example.com"
+                autocomplete="username"
+                required /></span
+          ></label>
+          <label class="ts-field"
+            ><span>Password</span
+            ><span class="ts-auth-input-wrap ts-password-field"
+              ><i class="bi bi-lock"></i
+              ><input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                data-password-input
+                required /><button
+                type="button"
+                class="ts-icon-button"
+                data-password-toggle
+                aria-label="Show password"
+                aria-pressed="false"
+              >
+                <i class="bi bi-eye"></i></button></span
+          ></label>
+          <div class="ts-auth-options">
+            <label class="ts-check-field"
+              ><input type="checkbox" name="remember" /><span
+                >Remember me</span
+              ></label
+            ><button
+              class="ts-auth-text-button"
+              type="button"
+              data-auth-go="recovery"
+            >
+              Forgot password?
+            </button>
+          </div>
+          <button
+            class="ts-button ts-button--primary ts-button--full ts-auth-submit"
+            type="submit"
+          >
+            Sign in to workspace <i class="bi bi-arrow-right"></i>
+          </button>
+          <p class="ts-auth-demo-note">
+            <i class="bi bi-info-circle"></i> Your data is Encrypted.
+          </p>
+        </form>
+      </div>
+
+      <div
+        class="ts-auth-panel"
+        id="ts-auth-panel-signup"
+        role="tabpanel"
+        aria-labelledby="ts-auth-tab-signup"
+        data-auth-panel="signup"
+        hidden
+      >
+        <form data-static-form class="ts-auth-form">
+          <div class="ts-auth-name-row">
+            <label class="ts-field"
+              ><span>First name</span
+              ><input
+                type="text"
+                name="first_name"
+                placeholder="First name"
+                autocomplete="given-name"
+                required
+            /></label>
+            <label class="ts-field"
+              ><span>Last name</span
+              ><input
+                type="text"
+                name="last_name"
+                placeholder="Last name"
+                autocomplete="family-name"
+                required
+            /></label>
+          </div>
+
+          <label class="ts-field"
+            ><span>Username</span
+            ><span class="ts-auth-input-wrap"
+              ><i class="bi bi-at"></i
+              ><input
+                type="text"
+                name="username"
+                placeholder="Choose a username"
+                autocomplete="username"
+                autocapitalize="none"
+                spellcheck="false"
+                minlength="3"
+                required /></span
+          ></label>
+
+          <label class="ts-field"
+            ><span>Email address</span
+            ><span class="ts-auth-input-wrap"
+              ><i class="bi bi-envelope"></i
+              ><input
+                type="email"
+                name="signup_email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required /></span
+          ></label>
+
+          <label class="ts-field"
+            ><span>Create password</span
+            ><span class="ts-auth-input-wrap ts-password-field"
+              ><i class="bi bi-lock"></i
+              ><input
+                type="password"
+                name="signup_password"
+                placeholder="At least 8 characters"
+                autocomplete="new-password"
+                minlength="8"
+                data-password-input
+                required /><button
+                type="button"
+                class="ts-icon-button"
+                data-password-toggle
+                aria-label="Show password"
+                aria-pressed="false"
+              >
+                <i class="bi bi-eye"></i></button></span
+          ></label>
+
+          <label class="ts-field"
+            ><span>Confirm password</span
+            ><span class="ts-auth-input-wrap ts-password-field"
+              ><i class="bi bi-lock"></i
+              ><input
+                type="password"
+                name="confirmPass"
+                placeholder="Enter your password again"
+                autocomplete="new-password"
+                minlength="8"
+                data-confirm-password
+                required /><button
+                type="button"
+                class="ts-icon-button"
+                data-password-toggle
+                aria-label="Show password"
+                aria-pressed="false"
+              >
+                <i class="bi bi-eye"></i></button></span
+            ><small
+              class="ts-auth-password-feedback"
+              data-password-match-message
+              aria-live="polite"
+            ></small
+          ></label>
+
+          <label class="ts-check-field ts-auth-terms"
+            ><input type="checkbox" name="terms" value="1" required /><span
+              >I agree to the terms of use and privacy policy.</span
+            ></label
+          >
+
+          <button
+            class="ts-button ts-button--primary ts-button--full ts-auth-submit"
+            type="submit"
+          >
+            Create my account <i class="bi bi-arrow-right"></i>
+          </button>
+          <p class="ts-auth-demo-note">
+            <i class="bi bi-info-circle"></i> Create your ThemeStory account.
+          </p>
+        </form>
+      </div>
+
+      <div
+        class="ts-auth-panel"
+        id="ts-auth-panel-recovery"
+        role="tabpanel"
+        aria-labelledby="ts-auth-tab-recovery"
+        data-auth-panel="recovery"
+        hidden
+      >
+        <div class="ts-auth-recovery-icon">
+          <i class="bi bi-envelope-paper-heart"></i>
+        </div>
+        <h3 class="ts-auth-subheading">Let's get you back in</h3>
+        <p class="ts-auth-recovery-copy">
+          Enter the email address linked to your account. If this were
+          connected, we'd send you a secure recovery link.
+        </p>
+        <form data-static-form class="ts-auth-form">
+          <label class="ts-field"
+            ><span>Email address</span
+            ><span class="ts-auth-input-wrap"
+              ><i class="bi bi-envelope"></i
+              ><input
+                type="email"
+                name="recovery_email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required /></span
+          ></label>
+          <button
+            class="ts-button ts-button--primary ts-button--full ts-auth-submit"
+            type="submit"
+          >
+            Send recovery link <i class="bi bi-arrow-right"></i>
+          </button>
+          <button
+            class="ts-auth-back-to-signin"
+            type="button"
+            data-auth-go="signin"
+          >
+            <i class="bi bi-arrow-left"></i> Back to sign in
+          </button>
+          <p class="ts-auth-demo-note">
+            <i class="bi bi-info-circle"></i> Preview mode: recovery emails are
+            not sent.
+          </p>
+        </form>
+      </div>
+
+      <div class="ts-auth-card-footer">
+        <span>Need a hand?</span
+        ><a href="mailto:support@example.com"
+          ><i class="bi bi-chat-dots"></i> Contact Support</a
+        >
+      </div>
+    </section>
+    <p class="ts-auth-legal">
+      © <?= date('Y') ?> ThemeStory <span>•</span> A home for your ideas
+    </p>
+  </div>
 </section>
+
+

@@ -7,7 +7,7 @@
     page.dataset.tagsScriptReady = "true";
 
     const SITE_BASE = window.ThemeStoryConfig.siteBase;
-    const TAGS_API_URL = SITE_BASE + "index.php/blogs/tags";
+    const TAGS_API_URL = SITE_BASE + "blogs/tags";
 
     const cloud = page.querySelector("[data-tag-cloud]");
     const tbody = page.querySelector("[data-tag-tbody]");
@@ -43,11 +43,57 @@
         return payload && String(payload.responseCategory) === "200";
     }
 
+
+
+    function friendlyApiError(payload, fallback) {
+        const message = String(
+            payload?.responseResult || payload?.message || payload?.error || ""
+        ).trim();
+
+        if (/duplicate entry|integrity constraint violation|unique constraint/i.test(message)) {
+            const slugDuplicate = /tag_slug|slug/i.test(message);
+
+            return slugDuplicate
+                ? "This tag slug already exists. Please choose a different slug."
+                : "This tag name already exists. Please choose a different name.";
+        }
+
+        return message || fallback;
+    }
+
+
+    
     async function apiRequest(url, options) {
-        const response = await fetch(url, Object.assign({
-            credentials: "same-origin",
-            headers: { "Accept": "application/json" }
-        }, options || {}));
+        const config = options || {};
+        const tokenName = window.ThemeStoryConfig?.tokenName;
+
+        let token = null;
+
+        try {
+            token = tokenName ? localStorage.getItem(tokenName) : null;
+        } catch (_) {
+            throw new Error("Unable to access your sign-in session.");
+        }
+
+        if (!token || !token.trim()) {
+            throw new Error("Please sign in first.");
+        }
+
+        // const headers = new Headers(config.headers || {});
+        // headers.set("Accept", "application/json");
+        // headers.set("Authorization", "Bearer " + token);
+
+        const headers = {
+            ...(config.headers || {}),
+            "Accept": "application/json",
+            "Authorization": "Bearer " + token
+        };
+
+        const response = await fetch(url, {
+            ...config,
+            credentials: config.credentials || "same-origin",
+            headers: headers
+        });
 
         let payload;
         try {
@@ -56,11 +102,26 @@
             throw new Error("The server returned an unreadable response.");
         }
 
+        // if (!response.ok || !isSuccess(payload)) {
+        //     throw new Error(
+        //         payload?.responseResult ||
+        //         payload?.message ||
+        //         ("Request failed (" + response.status + ").")
+        //     );
+        // }
+
+
+
         if (!response.ok || !isSuccess(payload)) {
-            throw new Error(payload?.responseResult || payload?.message || ("Request failed (" + response.status + ")."));
+            throw new Error(
+                friendlyApiError(payload, "The request failed (" + response.status + ").")
+            );
         }
+
+
         return payload;
     }
+
 
     function unwrapArray(payload) {
         const data = payload && payload.responseData;

@@ -65,7 +65,7 @@
 .ts-sidebar { position: fixed; z-index: 100; inset: 0 auto 0 0; display: flex; flex-direction: column; width: var(--ts-sidebar-width); padding: 24px 16px 14px; background: var(--ts-sidebar-bg); border-right: 1px solid var(--ts-border); overflow-y: auto; }
 .ts-sidebar-brand { display: flex; align-items: center; justify-content: space-between; padding: 0 7px 28px; }
 .ts-brand-link { display: flex; align-items: center; gap: 11px; min-width: 0; }
-.ts-brand-mark { display: inline-grid; place-items: center; flex: 0 0 42px; width: 42px; height: 42px; border-radius: 14px; color: #fff; background: var(--ts-accent); font-size: 20px; box-shadow: 0 7px 16px rgba(136,79,186,.2); }
+.ts-brand-mark { display: inline-grid; place-items: center; flex: 0 0 42px; width: 42px; height: 42px; border-radius: 14px; color: #fff;  font-size: 20px;  }
 .ts-brand-copy, .ts-sidebar-user-copy { display: flex; flex-direction: column; min-width: 0; }
 .ts-brand-copy strong { color: var(--ts-text); font-size: 16px; font-weight: 700; letter-spacing: -.4px; }
 .ts-brand-copy small { color: var(--ts-muted); font-size: 10px; }
@@ -591,4 +591,289 @@ html[data-story-theme="dark"] .ts-auth-theme-toggle { background: var(--ts-surfa
 
 .ts-profile-menu .dropdown-item:hover {
     background: var(--ts-purple-soft, #f4f0ff);
+}
+
+
+
+
+
+/* =========================================
+   THEME STORY — RESET PASSWORD
+========================================= */
+
+.ts-reset-password {
+    --rp-purple: #7652d5;
+    --rp-purple-dark: #5133a4;
+    --rp-purple-soft: #f1edff;
+    --rp-green: #31a875;
+    --rp-green-dark: #187f55;
+    --rp-green-soft: #eaf8f1;
+    --rp-border: #e8e5f0;
+    --rp-muted: #77758a;
+}
+
+.ts-reset-password .ts-page-eyebrow {
+    margin: 0 0 8px;
+    color: var(--rp-purple);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.ts-reset-password .ts-page-header {
+    margin-bottom: 24px;
+}
+
+.ts-reset-password .ts-page-header h1 {
+    margin: 0 0 8px;
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    font-weight: 750;
+}
+
+.ts-reset-password .ts-page-description {
+    margin: 0;
+    color: var(--rp-muted);
+}
+
+.ts-reset-password .ts-profile-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.ts-reset-password .ts-profile-card {
+    min-width: 0;
+    padding: 26px;
+    background: var(--bs-body-bg, #fff);
+    border: 1px solid var(--rp-border);
+    border-radius: 18px;
+    box-shadow: 0 8px 28px rgb(49 31 92 / 5%);
+}
+
+.ts-reset-password .ts-profile-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 26px;
+}
+
+.ts-reset-password .ts-profile-card-header h2 {
+    margin: 0 0 6px;
+    font-size: 1.05rem;
+    font-weight: 750;
+}
+
+.ts-reset-password .ts-profile-card-header p {
+    margin: 0;
+    color: var(--rp-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.ts-reset-password .ts-profile-icon {
+    display: grid;
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    color: var(--rp-purple);
+    background: var(--rp-purple-soft);
+    border-radius: 14px;
+    font-size: 1.25rem;
+}
+
+.ts-reset-password .ts-profile-icon--green {
+    color: var(--rp-green-dark);
+    background: var(--rp-green-soft);
+}
+
+.ts-reset-password .ts-form-group {
+    margin-bottom: 22px;
+}
+
+.ts-reset-password .ts-form-group label {
+    display: block;
+    margin-bottom: 9px;
+    font-size: 0.9rem;
+    font-weight: 650;
+}
+
+.ts-reset-password .ts-password-input-wrap {
+    position: relative;
+}
+
+.ts-reset-password .ts-password-input-wrap input {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 48px 12px 14px;
+    color: inherit;
+    background: var(--bs-body-bg, #fff);
+    border: 1px solid var(--rp-border);
+    border-radius: 11px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.ts-reset-password .ts-password-input-wrap input:focus {
+    border-color: var(--rp-purple);
+    box-shadow: 0 0 0 3px rgb(118 82 213 / 12%);
+}
+
+.ts-reset-password .ts-password-input-wrap input:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.ts-reset-password .ts-password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    display: grid;
+    width: 30px;
+    height: 30px;
+    place-items: center;
+    color: var(--rp-muted);
+    background: transparent;
+    border: 0;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.ts-reset-password .ts-password-toggle:hover {
+    color: var(--rp-purple);
+}
+
+.ts-reset-password .ts-form-hint {
+    display: block;
+    margin-top: 8px;
+    color: var(--rp-muted);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.ts-reset-password .ts-password-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.ts-reset-password .ts-btn {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 11px 18px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-weight: 650;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.ts-reset-password .ts-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.ts-reset-password .ts-btn-primary {
+    color: #fff;
+    background: var(--rp-purple);
+}
+
+.ts-reset-password .ts-btn-primary:hover:not(:disabled) {
+    background: var(--rp-purple-dark);
+    transform: translateY(-1px);
+}
+
+.ts-reset-password .ts-btn-secondary {
+    color: var(--rp-muted);
+    background: transparent;
+    border-color: var(--rp-border);
+}
+
+.ts-reset-password .ts-btn-secondary:hover {
+    color: var(--rp-purple);
+    border-color: var(--rp-purple);
+}
+
+.ts-reset-password .ts-password-message {
+    margin-bottom: 22px;
+    padding: 13px 15px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.ts-reset-password .ts-password-message[hidden] {
+    display: none !important;
+}
+
+.ts-reset-password .ts-password-message.is-success {
+    color: var(--rp-green-dark);
+    background: var(--rp-green-soft);
+    border-color: #c8ead8;
+}
+
+.ts-reset-password .ts-password-message.is-error {
+    color: #a52b3c;
+    background: #fff0f1;
+    border-color: #f4cbd0;
+}
+
+.ts-reset-password .ts-security-list {
+    display: grid;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ts-reset-password .ts-security-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--rp-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.ts-reset-password .ts-security-list i {
+    margin-top: 3px;
+    color: var(--rp-green);
+}
+
+@media (max-width: 900px) {
+    .ts-reset-password .ts-profile-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .ts-reset-password .ts-profile-card {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .ts-reset-password .ts-password-actions {
+        flex-direction: column;
+    }
+
+    .ts-reset-password .ts-btn {
+        width: 100%;
+    }
+}
+
+
+.ts-brand-mark:has(img),
+img.ts-brand-mark {
+    display: block;
+    /* width: 38px;
+    height: 38px; */
+    object-fit: contain;
+    flex-shrink: 0;
 }
