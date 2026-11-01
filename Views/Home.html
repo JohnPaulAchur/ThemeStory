@@ -14,7 +14,7 @@
           <!-- <div class="text-wrapper">Welcome to <br> Story’s Blog!</div> -->
             <div class="text-wrapper animate__animated animate__bounce animate__delay-1s">
                 <span class="hero-title-main">Welcome to</span>
-                <span class="hero-title-brand"><span class="hero-title-purple">Story’s</span> <span class="hero-title-green">Blog!</span></span>
+                <span class="hero-title-brand"><span class="hero-title-purple"><?= htmlspecialchars(ltSiteName(), ENT_QUOTES, 'UTF-8') ?>’s</span> <span class="hero-title-green">Blog!</span></span>
             </div>
           <p class="p animate__animated animate__rubberBand">
               Stay informed with the latest Stories, resources, and articles to keep ahead in the ever-evolving field.
@@ -48,7 +48,8 @@
 
     <section class="blog-section d-flex justify-content-center align-items-center flex-column animate__animated animate__fadeInUp animate__delay-2s">
       <div class="container2 mb-5 ">
-        <div class="filter-group2">
+        <!-- <div class="filter-group2">
+
           <div class="tag-active2">
             <div>
               <span class="tag-title2">All </span>
@@ -64,8 +65,16 @@
           <div class="tag2 cursor-pointer">Honor</div>
           <div class="tag2 cursor-pointer">Sport</div>
           <div class="tag2 cursor-pointer">Politics</div>
-        </div>
+        </div> -->
       
+        <div class="filter-group2" id="blog-category-filters">
+            <div class="tag-active2" data-category="all">
+                <div>
+                    <span class="tag-title2">All</span>
+                    <span class="tag-count2" id="published-story-count">0</span>
+                </div>
+            </div>
+        </div>
         <div class="sort-select-wrapper2">
           <select class="sort-select2">
             <option value="most-recent">Most Recent</option>
@@ -250,7 +259,7 @@
                     <i class="bi bi-compass sidebar-topic-icon"></i>
                 </div>
 
-                <div class="sidebar-topic-list">
+                <!-- <div class="sidebar-topic-list">
                     <a href="#blog-posts" class="sidebar-topic">
                         <i class="bi bi-cpu"></i> Technology
                     </a>
@@ -274,6 +283,13 @@
                     <a href="#blog-posts" class="sidebar-topic">
                         <i class="bi bi-people"></i> Community
                     </a>
+                </div> -->
+                <!-- <div class="sidebar-topic-list" id="sidebar-category-filters">
+
+                </div> -->
+
+                <div class="sidebar-topic-list" id="sidebar-topic-list">
+                    <!-- Categories will be loaded dynamically -->
                 </div>
             </div>
 

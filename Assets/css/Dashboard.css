@@ -877,3 +877,447 @@ img.ts-brand-mark {
     object-fit: contain;
     flex-shrink: 0;
 }
+
+
+
+
+
+
+/* =========================================================
+   THEMESTORY — DYNAMIC WEBSITE NAVIGATION
+   LifeTech OCMS role-based menus in dashboard topbar
+   ========================================================= */
+
+.ts-dashboard .ts-site-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+    margin: 0 22px;
+}
+
+.ts-dashboard .ts-site-nav-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ts-dashboard .ts-site-nav-item {
+    position: relative;
+    list-style: none;
+}
+
+.ts-dashboard .ts-site-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 38px;
+    padding: 8px 11px;
+    border-radius: 9px;
+    color: var(--ts-muted);
+    font-size: 10px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color .18s ease, background .18s ease;
+}
+
+.ts-dashboard .ts-site-nav-link:hover,
+.ts-dashboard .ts-site-nav-item:focus-within > .ts-site-nav-link {
+    color: var(--ts-accent);
+    background: var(--ts-accent-soft);
+}
+
+/* Parent menu indicator */
+.ts-dashboard .ts-site-nav-item.has-children > .ts-site-nav-link::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    margin-left: 2px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform .18s ease;
+}
+
+/* Nested dropdown */
+.ts-dashboard .ts-site-nav-item > .ts-site-nav-list {
+    position: absolute;
+    top: calc(100% + 7px);
+    left: 0;
+    z-index: 300;
+    display: block;
+    min-width: 210px;
+    padding: 7px;
+    border: 1px solid var(--ts-border);
+    border-radius: 12px;
+    background: var(--ts-surface);
+    box-shadow: 0 12px 32px rgba(20, 30, 25, .12);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(7px);
+    transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+}
+
+.ts-dashboard .ts-site-nav-item:hover > .ts-site-nav-list,
+.ts-dashboard .ts-site-nav-item:focus-within > .ts-site-nav-list {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.ts-dashboard .ts-site-nav-item > .ts-site-nav-list .ts-site-nav-link {
+    display: flex;
+    width: 100%;
+    min-height: 37px;
+    padding: 9px 11px;
+    white-space: normal;
+}
+
+.ts-dashboard .ts-site-nav-item > .ts-site-nav-list .ts-site-nav-item > .ts-site-nav-list {
+    top: 0;
+    left: calc(100% + 5px);
+}
+
+/* Tablet and smaller screens */
+@media (max-width: 1000px) {
+    .ts-dashboard .ts-topbar {
+        flex-wrap: wrap;
+        row-gap: 8px;
+    }
+
+    .ts-dashboard .ts-site-navigation {
+        order: 3;
+        flex: 1 0 100%;
+        justify-content: flex-start;
+        margin: 0;
+        padding: 4px 0 2px;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--ts-border) transparent;
+    }
+
+    .ts-dashboard .ts-site-nav-list {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+    }
+
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list {
+        position: fixed;
+        top: auto;
+        left: auto;
+        margin-top: 2px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 650px) {
+    .ts-dashboard .ts-topbar {
+        row-gap: 5px;
+    }
+
+    .ts-dashboard .ts-site-navigation {
+        padding: 5px 0;
+    }
+
+    .ts-dashboard .ts-site-nav-link {
+        min-height: 34px;
+        padding: 7px 9px;
+        font-size: 10px;
+    }
+
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list {
+        min-width: 190px;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .ts-dashboard .ts-site-nav-link,
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list {
+        transition: none;
+    }
+}
+
+
+/* =========================================================
+   THEMESTORY — LARGE-SCREEN NAVIGATION OVERFLOW FIX
+   Keep navigation on one line and horizontally scrollable.
+   ========================================================= */
+
+@media (min-width: 1001px) {
+
+    /* Keep the header at its existing height */
+    .ts-dashboard .ts-topbar {
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+
+    /* Constrain navigation to the available space */
+    .ts-dashboard .ts-site-navigation {
+        flex: 1 1 0%;
+        width: 0;
+        min-width: 0;
+        max-width: 100%;
+        margin: 0 16px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        justify-content: flex-start;
+        scrollbar-width: thin;
+        scrollbar-color: var(--ts-border) transparent;
+    }
+
+    /* Prevent navigation items from wrapping */
+    .ts-dashboard .ts-site-nav-list {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        width: max-content;
+        min-width: max-content;
+    }
+
+    /* Prevent individual menu items from shrinking */
+    .ts-dashboard .ts-site-nav-item {
+        flex: 0 0 auto;
+    }
+}
+
+
+
+
+
+
+
+/* =========================================================
+   THEMESTORY — FLOATING NAVIGATION DROPDOWN
+   Styles for dropdowns temporarily moved to document.body.
+   ========================================================= */
+
+@media (min-width: 1001px) {
+
+    .ts-site-nav-list.ts-floating-dropdown {
+        position: fixed !important;
+        display: block !important;
+
+        width: max-content;
+        min-width: 210px;
+        max-width: 280px;
+        max-height: 70vh;
+
+        margin: 0 !important;
+        padding: 7px;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        list-style: none;
+        background: #FFFFFF;
+        border: 1px solid #E8EEE9;
+        border-radius: 12px;
+        box-shadow: 0 12px 32px rgba(20, 30, 25, .12);
+
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        transform: none !important;
+
+        z-index: 99999 !important;
+    }
+
+    .ts-site-nav-list.ts-floating-dropdown .ts-site-nav-item {
+        position: relative;
+        display: block;
+        width: 100%;
+    }
+
+    .ts-site-nav-list.ts-floating-dropdown .ts-site-nav-link {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        min-height: 37px;
+        padding: 9px 11px;
+
+        border-radius: 9px;
+        color: #6B7280;
+        font-family: "Poppins", sans-serif;
+        font-size: 10px;
+        font-weight: 500;
+        text-decoration: none;
+        white-space: normal;
+
+        transition: color .18s ease, background .18s ease;
+    }
+
+    .ts-site-nav-list.ts-floating-dropdown .ts-site-nav-link:hover,
+    .ts-site-nav-list.ts-floating-dropdown .ts-site-nav-item:focus-within > .ts-site-nav-link {
+        color: #884FBA;
+        background: #F4ECFA;
+    }
+
+    /* Nested dropdowns */
+    .ts-site-nav-list.ts-floating-dropdown .ts-site-nav-item > .ts-site-nav-list {
+        position: absolute;
+        top: 0;
+        left: calc(100% + 5px);
+        z-index: 100000;
+        min-width: 210px;
+    }
+}
+
+/* Dark mode */
+html[data-story-theme="dark"] .ts-site-nav-list.ts-floating-dropdown {
+    background: #1D2421;
+    border-color: #303B35;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .3);
+}
+
+html[data-story-theme="dark"] .ts-site-nav-list.ts-floating-dropdown .ts-site-nav-link {
+    color: #A2B0A8;
+}
+
+html[data-story-theme="dark"] .ts-site-nav-list.ts-floating-dropdown .ts-site-nav-link:hover,
+html[data-story-theme="dark"] .ts-site-nav-list.ts-floating-dropdown .ts-site-nav-item:focus-within > .ts-site-nav-link {
+    color: #B998E0;
+    background: #30243D;
+}
+
+
+/* =========================================================
+   THEMESTORY — TABLET & MOBILE DROPDOWN UI
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list {
+        min-width: 210px;
+        padding: 7px;
+
+        background: var(--ts-surface);
+        border: 1px solid var(--ts-border);
+        border-radius: 12px;
+
+        box-shadow: 0 12px 30px rgba(20, 30, 25, 0.14);
+
+        list-style: none;
+    }
+
+    /* Dropdown items */
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list > .ts-site-nav-item {
+        width: 100%;
+        list-style: none;
+    }
+
+    /* Dropdown links */
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list .ts-site-nav-link {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        min-height: 40px;
+        padding: 10px 12px;
+
+        color: var(--ts-muted);
+        font-size: 11px;
+        font-weight: 500;
+        text-decoration: none;
+        white-space: normal;
+
+        border-radius: 8px;
+        transition: background .2s ease, color .2s ease;
+    }
+
+    /* Hover and keyboard focus */
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list .ts-site-nav-link:hover,
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list .ts-site-nav-item:focus-within > .ts-site-nav-link {
+        color: var(--ts-accent);
+        background: var(--ts-accent-soft);
+    }
+
+    /* Nested dropdown indicator */
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list .ts-site-nav-item.has-children > .ts-site-nav-link::after {
+        margin-left: auto;
+        transform: rotate(-45deg);
+    }
+
+    /* Nested dropdown list */
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list .ts-site-nav-item > .ts-site-nav-list {
+        min-width: 190px;
+        border: 1px solid var(--ts-border);
+        border-radius: 10px;
+        background: var(--ts-surface);
+        box-shadow: 0 10px 25px rgba(20, 30, 25, 0.12);
+    }
+}
+
+/* Small screens */
+@media (max-width: 650px) {
+
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list {
+        min-width: 190px;
+        max-width: calc(100vw - 30px);
+        padding: 6px;
+        border-radius: 10px;
+    }
+
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list .ts-site-nav-link {
+        min-height: 38px;
+        padding: 9px 10px;
+        font-size: 10px;
+    }
+}
+
+/* Dark mode */
+html[data-story-theme="dark"] .ts-dashboard .ts-site-nav-item > .ts-site-nav-list {
+    background: var(--ts-surface);
+    border-color: var(--ts-border);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .3);
+}
+
+
+/* =========================================================
+   FIX — RESPONSIVE DROPDOWN POSITION
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .ts-dashboard .ts-site-nav-item {
+        position: relative;
+    }
+
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list {
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        right: auto;
+        margin-top: 0;
+        z-index: 999;
+    }
+
+    /* Nested dropdowns */
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list
+    .ts-site-nav-item > .ts-site-nav-list {
+        top: 0;
+        left: calc(100% + 5px);
+    }
+}
+
+/* =========================================================
+   RESPONSIVE NAVIGATION DROPDOWN POSITIONING
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .ts-dashboard .ts-site-nav-item > .ts-site-nav-list {
+        position: fixed;
+        top: auto;
+        left: auto;
+        right: auto;
+        margin-top: 0;
+        z-index: 999999;
+    }
+}

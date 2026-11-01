@@ -167,6 +167,11 @@ if ($tsFavicon !== '') {
                 </button>
                 <div class="ts-breadcrumb"><span>Workspace</span><i class="bi bi-chevron-right" aria-hidden="true"></i><strong data-current-section>Overview</strong></div>
             </div>
+            <nav class="ts-site-navigation"
+                id="ts-site-navigation"
+                aria-label="Website navigation">
+                <!-- LifeTech role-based menus will be rendered here -->
+            </nav>
             <div class="ts-topbar-actions">
                 <span class="ts-date-label"><i class="bi bi-calendar3" aria-hidden="true"></i><span data-today-label></span></span>
                 <button class="ts-icon-button ts-theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" title="Switch to dark mode">
@@ -277,6 +282,22 @@ if ($tsFavicon !== '') {
             rtrim(ltSiteUrl(), '/') . '/',
             JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
         ) ?>,
+
+        loginUrl: <?= json_encode(
+            rtrim(ltSiteUrl(), '/') . '/admin',
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+        ) ?>,
+
+        backendBaseUrl: <?= json_encode(
+            ApiTokenDetails::backEndBaseUrl(),
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+        ) ?>,
+
+        siteHostAddress: <?= json_encode(
+            ltSiteHostAddress(),
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+        ) ?>,
+
         tokenName: <?= json_encode(
             ApiTokenDetails::tokenName(),
             JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT

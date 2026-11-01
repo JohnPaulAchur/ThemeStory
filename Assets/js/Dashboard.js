@@ -118,6 +118,66 @@
         }, 2800);
     }
 
+
+
+/* =========================================================
+   CENTRAL LIFETECH OCMS AUTHENTICATION EXPIRY HANDLER
+   Detects responseCategory 1102 across dashboard fetch calls.
+========================================================= */
+
+const TS_LOGIN_URL = String(
+    window.ThemeStoryConfig?.loginUrl || ""
+).trim();
+
+let tsAuthenticationExpired = false;
+
+function handleThemeStoryAuthenticationExpiry() {
+    if (tsAuthenticationExpired) return;
+
+    tsAuthenticationExpired = true;
+
+    showToast("Your session has expired. Please log in again.");
+
+    // Give the user time to see the notification before redirecting.
+    window.setTimeout(function () {
+        if (TS_LOGIN_URL) {
+            window.location.replace(TS_LOGIN_URL);
+        } else {
+            console.error("ThemeStory loginUrl is not configured.");
+        }
+    }, 1800);
+}
+
+/* Intercept fetch responses centrally for all dashboard scripts. */
+if (!window.__TS_AUTH_FETCH_INTERCEPTOR__) {
+    window.__TS_AUTH_FETCH_INTERCEPTOR__ = true;
+
+    const originalFetch = window.fetch.bind(window);
+
+    window.fetch = async function (...args) {
+        if (tsAuthenticationExpired) {
+            throw new Error("Authentication expired. Redirecting to login.");
+        }
+
+        const response = await originalFetch(...args);
+
+        // Inspect a clone so the original response remains readable
+        // by the API function that made the request.
+        try {
+            const payload = await response.clone().json();
+
+            if (Number(payload?.responseCategory) === 1102) {
+                handleThemeStoryAuthenticationExpiry();
+            }
+        } catch (error) {
+            // Ignore non-JSON responses and response parsing errors.
+        }
+
+        return response;
+    };
+}
+
+
     if (todayLabel) {
         todayLabel.textContent = new Intl.DateTimeFormat(undefined, {
             weekday: "short", day: "numeric", month: "short", year: "numeric"
@@ -173,34 +233,83 @@
     }
 
     /* Theme toggle deliberately uses the same global attribute as the ThemeStory site. */
-    function applyTheme(theme) {
-        const nextTheme = theme === "dark" ? "dark" : "light";
-        html.setAttribute("data-story-theme", nextTheme);
-        if (themeButton) {
-            const icon = themeButton.querySelector("i");
-            const dark = nextTheme === "dark";
-            themeButton.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
-            themeButton.setAttribute("title", dark ? "Switch to light mode" : "Switch to dark mode");
-            if (icon) icon.className = dark ? "bi bi-sun" : "bi bi-moon-stars";
-        }
-        scope.querySelectorAll("[data-set-theme]").forEach(function (button) {
-            button.setAttribute("aria-pressed", String(button.getAttribute("data-set-theme") === nextTheme));
-        });
+    /* Theme toggle with localStorage persistence across dashboard pages. */
+const THEME_STORAGE_KEY = "themestory-dashboard-theme";
+
+function applyTheme(theme) {
+    const nextTheme = theme === "dark" ? "dark" : "light";
+
+    html.setAttribute("data-story-theme", nextTheme);
+
+    try {
+        localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+    } catch (error) {
+        console.warn("Unable to save the dashboard theme preference.", error);
     }
 
     if (themeButton) {
-        themeButton.addEventListener("click", function () {
-            applyTheme((html.getAttribute("data-story-theme") || "light") === "dark" ? "light" : "dark");
-        });
+        const icon = themeButton.querySelector("i");
+        const dark = nextTheme === "dark";
+
+        themeButton.setAttribute(
+            "aria-label",
+            dark ? "Switch to light mode" : "Switch to dark mode"
+        );
+
+        themeButton.setAttribute(
+            "title",
+            dark ? "Switch to light mode" : "Switch to dark mode"
+        );
+
+        if (icon) {
+            icon.className = dark ? "bi bi-sun" : "bi bi-moon-stars";
+        }
     }
+
     scope.querySelectorAll("[data-set-theme]").forEach(function (button) {
-        button.addEventListener("click", function () {
-            const selected = button.getAttribute("data-set-theme");
-            applyTheme(selected);
-            showToast(selected === "dark" ? "Dark appearance enabled for this dashboard." : "Light appearance enabled for this dashboard.");
-        });
+        button.setAttribute(
+            "aria-pressed",
+            String(button.getAttribute("data-set-theme") === nextTheme)
+        );
     });
-    applyTheme(html.getAttribute("data-story-theme") || "light");
+}
+
+/* Restore the saved preference when a dashboard page loads. */
+function getSavedTheme() {
+    try {
+        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+
+        return savedTheme === "dark" || savedTheme === "light"
+            ? savedTheme
+            : "light";
+    } catch (error) {
+        return "light";
+    }
+}
+
+if (themeButton) {
+    themeButton.addEventListener("click", function () {
+        const currentTheme = html.getAttribute("data-story-theme") || "light";
+
+        applyTheme(currentTheme === "dark" ? "light" : "dark");
+    });
+}
+
+scope.querySelectorAll("[data-set-theme]").forEach(function (button) {
+    button.addEventListener("click", function () {
+        const selected = button.getAttribute("data-set-theme");
+
+        applyTheme(selected);
+
+        showToast(
+            selected === "dark"
+                ? "Dark appearance enabled for this dashboard."
+                : "Light appearance enabled for this dashboard."
+        );
+    });
+});
+
+applyTheme(getSavedTheme());
 
     function filterTable(name) {
         const table = scope.querySelector('[data-searchable-table="' + name + '"]');
@@ -792,6 +901,396 @@ const TS_CONFIG = window.ThemeStoryConfig || {};
 
 const SITE_BASE = String(TS_CONFIG.siteBase || "").replace(/\/?$/, "/");
 
+
+/* =========================================================
+   LIFETECH OCMS — ROLE-BASED WEBSITE NAVIGATION
+   Loads menus permitted for the current user's roles.
+   Does not modify the ThemeStory workspace sidebar.
+========================================================= */
+
+const TS_MENU_CONFIG = window.ThemeStoryConfig || {};
+
+const TS_MENU_API_BASE = String(
+    TS_MENU_CONFIG.backendBaseUrl || ""
+).replace(/\/+$/, "");
+
+const TS_MENU_SITE_HOST = (() => {
+    const configuredHost = String(TS_MENU_CONFIG.siteHostAddress || "").trim();
+
+    try {
+        return new URL(configuredHost || SITE_BASE, window.location.origin).href.replace(/\/+$/, "");
+    } catch (error) {
+        console.error("ThemeStory: Invalid site host address:", configuredHost);
+        return window.location.origin;
+    }
+})();
+
+const TS_MENU_TOKEN = TS_MENU_CONFIG.tokenName
+    ? localStorage.getItem(TS_MENU_CONFIG.tokenName) || ""
+    : "";
+
+async function loadNavigationMenus(token = "") {
+    if (!TS_MENU_API_BASE) {
+        throw new Error("LifeTech backend API address is missing.");
+    }
+
+    const headers = {
+        Accept: "application/json"
+    };
+
+    if (token) {
+        headers.Authorization = "Bearer " + token;
+    }
+
+    const url = new URL(
+        TS_MENU_API_BASE + "/menus/is-navigation"
+    );
+
+    const response = await fetch(url.href, {
+        method: "GET",
+        headers
+    });
+
+    if (!response.ok) {
+        throw new Error(
+            "Navigation request failed: HTTP " + response.status
+        );
+    }
+
+    // const result = await response.json();
+
+    // if (Number(result.responseCategory) !== 200) {
+    //     throw new Error(
+    //         result.responseResult || "Unable to load navigation menus."
+    //     );
+    // }
+
+
+    const result = await response.json();
+
+if (handleThemeStorySessionExpiry(result)) {
+    throw new Error("Your session has expired.");
+}
+
+if (Number(result.responseCategory) !== 200) {
+    throw new Error(
+        result.responseResult || "Unable to load navigation menus."
+    );
+}
+
+    if (!Array.isArray(result.responseData)) {
+        throw new Error("Invalid navigation menu response.");
+    }
+
+    return result.responseData;
+}
+
+function getSiteMenuUrl(item) {
+    const route = String(item.routePath || "").trim();
+
+    if (!route || route === "#") {
+        return "#";
+    }
+
+    let url;
+
+    try {
+        if (Number(item.isExternal) === 1) {
+            url = new URL(route);
+        } else {
+            const base = TS_MENU_SITE_HOST + "/";
+            url = new URL(route.replace(/^\/+/, ""), base);
+        }
+
+        if (!["http:", "https:"].includes(url.protocol)) {
+            throw new Error("Unsupported navigation URL protocol.");
+        }
+
+        return url.href;
+
+    } catch (error) {
+        console.error("ThemeStory: Could not build menu URL:", {
+            menuName: item.menuName,
+            routePath: item.routePath,
+            isExternal: item.isExternal,
+            siteHostAddress: TS_MENU_SITE_HOST,
+            error: error
+        });
+
+        return "#";
+    }
+}
+
+function buildSiteMenuList(items) {
+    const list = document.createElement("ul");
+    list.className = "ts-site-nav-list";
+
+    items.forEach(function (item) {
+        const listItem = document.createElement("li");
+        listItem.className = "ts-site-nav-item";
+
+        const link = document.createElement("a");
+
+        link.className = "ts-site-nav-link";
+        link.textContent = item.menuName || "";
+        link.href = getSiteMenuUrl(item);
+
+        const target = item.target || "self";
+
+        link.target = target === "self" ? "_self" : target;
+
+        if (link.target === "_blank") {
+            link.rel = "noopener noreferrer";
+        }
+
+        listItem.appendChild(link);
+
+        if (
+            Array.isArray(item.children) &&
+            item.children.length
+        ) {
+            listItem.classList.add("has-children");
+
+            listItem.appendChild(
+                buildSiteMenuList(item.children)
+            );
+        }
+
+        list.appendChild(listItem);
+    });
+
+    return list;
+}
+
+function renderSiteNavigation(menus) {
+    const nav = document.getElementById("ts-site-navigation");
+
+    if (!nav) return;
+
+    nav.replaceChildren();
+
+    if (!menus.length) {
+        nav.hidden = true;
+        return;
+    }
+
+    nav.hidden = false;
+    nav.appendChild(buildSiteMenuList(menus));
+}
+
+// /* Position large-screen dropdowns outside the horizontal scroll area. */
+// function positionSiteNavigationDropdowns() {
+//     const navigation = document.querySelector("#ts-site-navigation");
+
+//     if (!navigation) return;
+
+//     navigation.addEventListener("mouseover", function (event) {
+//         if (window.innerWidth <= 1000) return;
+
+//         const item = event.target.closest(".ts-site-nav-item");
+
+//         if (!item || !navigation.contains(item)) return;
+
+//         const dropdown = Array.from(item.children).find(function (child) {
+//             return child.classList.contains("ts-site-nav-list");
+//         });
+
+//         if (!dropdown) return;
+
+//         const rect = item.getBoundingClientRect();
+//         const isSubmenu = Boolean(
+//             item.parentElement.closest(".ts-site-nav-item")
+//         );
+
+//         dropdown.style.setProperty(
+//             "--ts-dropdown-top",
+//             (isSubmenu ? rect.top : rect.bottom) + "px"
+//         );
+
+//         dropdown.style.setProperty(
+//             "--ts-dropdown-left",
+//             (isSubmenu ? rect.right : rect.left) + "px"
+//         );
+
+//         dropdown.style.setProperty("--ts-submenu-top", rect.top + "px");
+//         dropdown.style.setProperty("--ts-submenu-left", rect.right + "px");
+//     });
+// }
+
+// positionSiteNavigationDropdowns();
+
+/* =========================================================
+   LARGE-SCREEN FLOATING NAVIGATION DROPDOWNS
+   ========================================================= */
+
+
+function initialiseFloatingSiteDropdowns() {
+    const nav = document.getElementById("ts-site-navigation");
+
+    if (!nav) return;
+
+    let activeDropdown = null;
+    let closeTimer = null;
+
+    function closeDropdown() {
+        if (!activeDropdown) return;
+
+        const state = activeDropdown;
+        const dropdown = state.dropdown;
+
+        dropdown.classList.remove("ts-floating-dropdown");
+
+        dropdown.style.removeProperty("position");
+        dropdown.style.removeProperty("top");
+        dropdown.style.removeProperty("left");
+        dropdown.style.removeProperty("right");
+        dropdown.style.removeProperty("z-index");
+        dropdown.style.removeProperty("margin-top");
+
+        // Restore dropdown to its original location
+        if (state.placeholder && state.placeholder.parentNode) {
+            state.placeholder.parentNode.insertBefore(
+                dropdown,
+                state.placeholder
+            );
+
+            state.placeholder.remove();
+        }
+
+        activeDropdown = null;
+    }
+
+    function openDropdown(item, dropdown, link) {
+        clearTimeout(closeTimer);
+
+        // Close any previously active dropdown
+        if (
+            activeDropdown &&
+            activeDropdown.dropdown !== dropdown
+        ) {
+            closeDropdown();
+        }
+
+        const rect = link.getBoundingClientRect();
+        const isDesktop = window.innerWidth > 1000;
+
+        let placeholder = null;
+
+        if (isDesktop) {
+            // Desktop: move dropdown outside the scrolling navigation
+            if (!activeDropdown || activeDropdown.dropdown !== dropdown) {
+                placeholder = document.createComment("dropdown");
+
+                dropdown.parentNode.insertBefore(
+                    placeholder,
+                    dropdown
+                );
+
+                document.body.appendChild(dropdown);
+            } else {
+                placeholder = activeDropdown.placeholder;
+            }
+
+            dropdown.classList.add("ts-floating-dropdown");
+        }
+
+        // Desktop and responsive positioning
+        dropdown.style.position = "fixed";
+        dropdown.style.top = rect.bottom + "px";
+        dropdown.style.left = rect.left + "px";
+        dropdown.style.right = "auto";
+        dropdown.style.marginTop = "0";
+        dropdown.style.zIndex = "999999";
+
+        activeDropdown = {
+            item: item,
+            dropdown: dropdown,
+            placeholder: placeholder
+        };
+    }
+
+    function scheduleClose() {
+        clearTimeout(closeTimer);
+
+        closeTimer = setTimeout(function () {
+            if (
+                activeDropdown &&
+                !activeDropdown.dropdown.matches(":hover") &&
+                !activeDropdown.item.matches(":hover")
+            ) {
+                closeDropdown();
+            }
+        }, 180);
+    }
+
+    nav.querySelectorAll(".ts-site-nav-item.has-children")
+        .forEach(function (item) {
+
+            const link = item.querySelector(
+                ":scope > .ts-site-nav-link"
+            );
+
+            const dropdown = item.querySelector(
+                ":scope > .ts-site-nav-list"
+            );
+
+            if (!link || !dropdown) return;
+
+            // Prevent duplicate event listeners
+            if (item.dataset.floatingDropdownReady === "true") return;
+
+            item.dataset.floatingDropdownReady = "true";
+
+            item.addEventListener("mouseenter", function () {
+                openDropdown(item, dropdown, link);
+            });
+
+            item.addEventListener("mouseleave", scheduleClose);
+
+            dropdown.addEventListener("mouseenter", function () {
+                clearTimeout(closeTimer);
+            });
+
+            dropdown.addEventListener("mouseleave", scheduleClose);
+        });
+
+    // Close on scrolling so dropdown coordinates don't become stale
+    window.addEventListener("scroll", closeDropdown, true);
+
+    // Restore the dropdown to its original parent when resizing
+    window.addEventListener("resize", function () {
+        clearTimeout(closeTimer);
+        closeDropdown();
+    });
+}
+
+
+async function initialiseSiteNavigation() {
+    const nav = document.getElementById("ts-site-navigation");
+
+    if (!nav) return;
+
+    try {
+        const menus = await loadNavigationMenus(TS_MENU_TOKEN);
+
+        renderSiteNavigation(menus);
+        initialiseFloatingSiteDropdowns();
+
+    } catch (error) {
+        console.error(
+            "ThemeStory website navigation error:",
+            error
+        );
+
+        nav.replaceChildren();
+        nav.hidden = true;
+    }
+}
+
+/* Load the current user's permitted website menus. */
+initialiseSiteNavigation();
+
+
 if (!TS_CONFIG.siteBase) {
     console.error(
         "ThemeStory configuration error: siteBase is missing."
@@ -810,7 +1309,49 @@ const COMMENTS_API_URL = SITE_BASE + "blogs/comments";
 /* ---------------------------------------------------------
    LifeTechOCMS authenticated MdBlog requests
 --------------------------------------------------------- */
+let isSessionExpiryHandled = false;
 
+function handleThemeStorySessionExpiry(response) {
+    const responseCode = Number(response?.responseCode);
+
+    if (responseCode !== 1102 && responseCode !== 1103) {
+        return false;
+    }
+
+    if (isSessionExpiryHandled) {
+        return true;
+    }
+
+    isSessionExpiryHandled = true;
+
+    const message = "Your session has expired. Please sign in again.";
+
+    // Clear the stored authentication token.
+    if (TS_CONFIG.tokenName) {
+        localStorage.removeItem(TS_CONFIG.tokenName);
+    }
+
+    // Notify the user.
+    if (typeof showToast === "function") {
+        showToast(message, "warning");
+    } else {
+        alert(message);
+    }
+
+    // Redirect to the configured login page.
+    const loginUrl = TS_CONFIG.loginUrl;
+
+    if (loginUrl) {
+        setTimeout(function () {
+            window.location.replace(loginUrl);
+        }, 1500);
+    }
+
+    return true;
+}
+
+// Make the handler available to other dashboard scripts.
+window.ThemeStoryHandleApiResponse = handleThemeStorySessionExpiry;
 
 
 function mdBlogFetch(url, options = {}) {
@@ -928,19 +1469,54 @@ function getPostImage(post) {
    API response helpers
 --------------------------------------------------------- */
 
-async function readMdBlogResponse(response, fallbackMessage) {
-    if (!response.ok) {
-        throw new Error(
-            fallbackMessage + " (HTTP " + response.status + ")."
-        );
-    }
+// async function readMdBlogResponse(response, fallbackMessage) {
+//     if (!response.ok) {
+//         throw new Error(
+//             fallbackMessage + " (HTTP " + response.status + ")."
+//         );
+//     }
 
+//     let result;
+
+//     try {
+//         result = await response.json();
+//     } catch (_) {
+//         throw new Error("The server returned an unreadable response.");
+//     }
+
+//     if (Number(result.responseCategory) !== 200) {
+//         throw new Error(
+//             result.responseResult || fallbackMessage
+//         );
+//     }
+
+//     return result.responseData;
+// }
+
+
+async function readMdBlogResponse(response, fallbackMessage) {
     let result;
 
     try {
         result = await response.json();
     } catch (_) {
+        if (!response.ok) {
+            throw new Error(
+                fallbackMessage + " (HTTP " + response.status + ")."
+            );
+        }
+
         throw new Error("The server returned an unreadable response.");
+    }
+
+    if (handleThemeStorySessionExpiry(result)) {
+        throw new Error("Your session has expired.");
+    }
+
+    if (!response.ok) {
+        throw new Error(
+            fallbackMessage + " (HTTP " + response.status + ")."
+        );
     }
 
     if (Number(result.responseCategory) !== 200) {

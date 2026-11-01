@@ -149,6 +149,13 @@
             }
         })
         .done(function (response) {
+            if (
+                typeof window.ThemeStoryHandleApiResponse === "function" &&
+                window.ThemeStoryHandleApiResponse(response)
+            ) {
+                return;
+            }
+
             if (!isSuccessful(response)) {
                 console.error(
                     "Profile API returned an unsuccessful response:",
